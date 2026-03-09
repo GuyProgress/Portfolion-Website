@@ -1,161 +1,654 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Professional portfolio showcasing career milestones and achievements">
-    <title>My Portfolio - Career Milestones</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Portfolio | Ingénieur Maintenance Prédictive & Ferroviaire</title>
+    <meta name="description" content="Portfolio d'un ingénieur senior en génie général, spécialisé en maintenance prédictive, IoT, Machine Learning, analyse vibratoire et systèmes ferroviaires.">
+    <meta name="keywords" content="Ingénieur, Maintenance prédictive, IoT, Machine Learning, Ferroviaire, Analyse vibratoire, Génie Général">
+    <meta name="author" content="Ingénieur Senior">
+    <meta property="og:title" content="Portfolio | Ingénieur Maintenance Prédictive & Ferroviaire">
+    <meta property="og:description" content="Découvrez une expertise à la croisée de la précision industrielle et de l'innovation technologique web 4.0.">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon SVG Inline -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%230A0A0C%22 rx=%2220%22/><path d=%22M30 70 L50 30 L70 70%22 stroke=%22%2300E5FF%22 stroke-width=%228%22 fill=%22none%22 stroke-linejoin=%22round%22 stroke-linecap=%22round%22/><circle cx=%2250%22 cy=%2255%22 r=%228%22 fill=%22%2300FF66%22/></svg>">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS Variables & Theming */
+        :root {
+            /* Light Theme overrides */
+            --bg-main: #f8f9fa;
+            --bg-secondary: #ffffff;
+            --bg-glass: rgba(255, 255, 255, 0.7);
+            --border-glass: rgba(0, 0, 0, 0.08);
+            --text-primary: #111111;
+            --text-secondary: #555555;
+            --accent-primary: #0055ff;  /* Blue */
+            --accent-secondary: #e65100; /* Orange */
+            --accent-tertiary: #009933; /* Green */
+            --timeline-line: #dee2e6;
+            --card-shadow: 0 8px 32px rgba(0,0,0,0.05);
+        }
+
+        [data-theme="dark"] {
+            /* Dark Theme (Default) */
+            --bg-main: #070709;
+            --bg-secondary: #0d0d12;
+            --bg-glass: rgba(13, 13, 18, 0.6);
+            --border-glass: rgba(255, 255, 255, 0.06);
+            --text-primary: #f8f9fa;
+            --text-secondary: #a0a0ab;
+            --accent-primary: #00E5FF; /* Electric Blue */
+            --accent-secondary: #FF5A00; /* Industrial Orange */
+            --accent-tertiary: #00FF66; /* Neon Green */
+            --timeline-line: #2d2d35;
+            --card-shadow: 0 8px 32px rgba(0,0,0,0.4);
+        }
+
+        /* Essential Reset */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color 0.4s ease, color 0.4s ease;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 { font-weight: 700; line-height: 1.2; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .text-accent { color: var(--accent-primary); }
+        .text-metric { color: var(--accent-tertiary); font-weight: 700; }
+        
+        /* Layout Utilities */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        section { padding: 6rem 0; position: relative; }
+        
+        /* Glassmorphism utility */
+        .glass {
+            background: var(--bg-glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-glass);
+            box-shadow: var(--card-shadow);
+            border-radius: 12px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0; width: 100%; z-index: 100;
+            padding: 1rem 0;
+            background: rgba(var(--bg-main), 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-glass);
+        }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.2rem; font-weight: 700; letter-spacing: -0.5px; text-decoration: none; color: var(--text-primary); }
+        .nav-links { display: flex; gap: 2rem; align-items: center; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; transition: color 0.3s; font-weight: 500; }
+        .nav-links a:hover { color: var(--accent-primary); }
+        
+        /* Theme Toggle Button */
+        .theme-toggle {
+            background: none; border: none; cursor: pointer; color: var(--text-primary);
+            display: flex; align-items: center; justify-content: center;
+            width: 40px; height: 40px; border-radius: 50%;
+            transition: background 0.3s;
+        }
+        .theme-toggle:hover { background: var(--bg-secondary); }
+        .theme-toggle svg { width: 20px; height: 20px; fill: currentColor; }
+        [data-theme="dark"] .icon-moon { display: none; }
+        [data-theme="light"] .icon-sun { display: none; }
+
+        /* HERO SECTION */
+        #hero {
+            height: 100vh;
+            display: flex; align-items: center;
+            overflow: hidden;
+        }
+        #hero-canvas {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0; opacity: 0.4; pointer-events: none;
+        }
+        .hero-content { position: relative; z-index: 1; max-width: 800px; }
+        .hero-badge {
+            display: inline-block; padding: 0.4rem 1rem; border-radius: 50px;
+            font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+            background: var(--bg-secondary); border: 1px solid var(--accent-primary);
+            color: var(--accent-primary); margin-bottom: 1.5rem;
+        }
+        .hero-title { font-size: 4rem; margin-bottom: 1rem; letter-spacing: -1px; }
+        .hero-title span { display: inline-block; opacity: 0; transform: translateY(20px); }
+        
+        .hero-subtitle { font-size: 1.5rem; color: var(--text-secondary); height: 2rem; }
+        .typing-cursor { display: inline-block; width: 3px; background: var(--accent-primary); animation: blink 1s step-end infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* SECTIONS HEADER */
+        .section-header { margin-bottom: 4rem; }
+        .section-title { font-size: 2.5rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem; }
+        .section-title::before { content: ''; display: block; width: 40px; height: 3px; background: var(--accent-primary); }
+        
+        /* MANIFESTE (Pillars) */
+        .pillars-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .pillar-card { padding: 2rem; transition: transform 0.3s, border-color 0.3s; }
+        .pillar-card:hover { transform: translateY(-5px); border-color: var(--accent-primary); }
+        .pillar-icon { margin-bottom: 1.5rem; color: var(--accent-primary); }
+        .pillar-icon svg { width: 48px; height: 48px; stroke-width: 1.5; }
+        .pillar-card h3 { font-size: 1.3rem; margin-bottom: 1rem; }
+        .pillar-card p { color: var(--text-secondary); font-size: 0.95rem; }
+
+        /* EXPERTISE */
+        .expertise-container { max-width: 800px; }
+        .skill-item { margin-bottom: 2rem; }
+        .skill-info { display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.95rem; font-weight: 500; }
+        .skill-track { height: 6px; background: var(--bg-secondary); border-radius: 3px; overflow: hidden; position: relative; }
+        .skill-bar { 
+            height: 100%; width: 0; 
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary)); 
+            border-radius: 3px; transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+            position: relative;
+        }
+        /* glowing tip on the progress bar */
+        .skill-bar::after {
+            content: ''; position: absolute; right: 0; top: 0; height: 100%; width: 10px;
+            background: #fff; box-shadow: 0 0 10px #fff; opacity: 0.5; border-radius: 50%;
+        }
+
+        /* REALISATIONS */
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem; }
+        .project-card { padding: 2.5rem; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; min-height: 280px; }
+        /* Linear-like gradient corner */
+        .project-card::before {
+            content: ''; position: absolute; top: -50px; right: -50px; width: 150px; height: 150px;
+            background: radial-gradient(circle, rgba(0, 229, 255, 0.15) 0%, transparent 70%);
+            border-radius: 50%; transition: transform 0.5s ease;
+        }
+        .project-card:hover::before { transform: scale(1.5); }
+        
+        .project-metric { font-size: 2.5rem; font-weight: 700; color: var(--accent-tertiary); margin-bottom: 1rem; letter-spacing: -1px; }
+        .project-title { font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .project-desc { color: var(--text-secondary); font-size: 0.9rem; }
+        .project-number { position: absolute; top: 1.5rem; right: 1.5rem; font-size: 3rem; font-weight: 700; opacity: 0.05; line-height: 1; pointer-events: none;}
+
+        /* PARCOURS (Timeline) */
+        .timeline { position: relative; padding-left: 2rem; }
+        .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--timeline-line); }
+        .timeline-item { position: relative; padding-bottom: 3rem; }
+        .timeline-item::last-child { padding-bottom: 0; }
+        .timeline-dot { position: absolute; left: -2.35rem; top: 0.3rem; width: 14px; height: 14px; border-radius: 50%; background: var(--bg-main); border: 2px solid var(--accent-primary); z-index: 2; transition: background 0.3s; }
+        .timeline-item:hover .timeline-dot { background: var(--accent-primary); box-shadow: 0 0 15px var(--accent-primary); }
+        .timeline-date { font-size: 0.85rem; color: var(--accent-secondary); margin-bottom: 0.5rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;}
+        .timeline-title { font-size: 1.2rem; margin-bottom: 0.3rem; }
+        .timeline-role { color: var(--text-secondary); font-size: 0.95rem; }
+
+        /* CONTACT */
+        .contact-content { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+        @media (max-width: 768px) { .contact-content { grid-template-columns: 1fr; } }
+        
+        .contact-info a.email-link { display: inline-block; font-size: 2rem; font-weight: 700; color: var(--text-primary); text-decoration: none; margin: 1rem 0 2rem 0; border-bottom: 2px solid transparent; transition: border-color 0.3s; }
+        .contact-info a.email-link:hover { border-color: var(--accent-primary); }
+        
+        .social-links { display: flex; gap: 1rem; }
+        .social-links a { display: flex; align-items: center; justify-content: center; width: 50px; height: 50px; background: var(--bg-secondary); border: 1px solid var(--border-glass); border-radius: 12px; color: var(--text-primary); transition: all 0.3s; }
+        .social-links a:hover { transform: translateY(-3px); border-color: var(--accent-primary); color: var(--accent-primary); }
+        .social-links svg { width: 24px; height: 24px; fill: currentColor; }
+
+        .contact-form { display: flex; flex-direction: column; gap: 1.5rem; }
+        .input-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        .input-group label { font-size: 0.85rem; font-weight: 500; color: var(--text-secondary); }
+        .input-group input, .input-group textarea {
+            width: 100%; padding: 1rem; background: var(--bg-secondary);
+            border: 1px solid var(--border-glass); border-radius: 8px;
+            color: var(--text-primary); font-family: inherit; font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .input-group input:focus, .input-group textarea:focus {
+            outline: none; border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.1);
+        }
+        .btn-submit {
+            background: var(--text-primary); color: var(--bg-main); font-weight: 600;
+            padding: 1rem 2rem; border: none; border-radius: 8px; cursor: pointer;
+            transition: transform 0.2s, background 0.3s; width: max-content; font-size: 1rem;
+        }
+        .btn-submit:hover { transform: translateY(-2px); background: var(--accent-primary); color: #000; }
+
+        /* FOOTER */
+        footer { padding: 3rem 0; text-align: center; border-top: 1px solid var(--border-glass); margin-top: 4rem; color: var(--text-secondary); font-size: 0.85rem; }
+
+        /* UTILITIES & ANIMATIONS */
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            .hero-subtitle { font-size: 1.1rem; }
+            section { padding: 4rem 0; }
+            .nav-links { display: none; /* simple mobile handling */ }
+            .projects-grid { grid-template-columns: 1fr; }
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-brand">Portfolio</div>
-            <ul class="nav-menu">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#milestones" class="nav-link">Milestones</a></li>
-                <li><a href="#skills" class="nav-link">Skills</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
+
+    <nav>
+        <div class="container nav-content">
+            <a href="#" class="logo mono">SYS_ENG<span class="text-accent">_</span></a>
+            <div class="nav-links">
+                <a href="#manifesto">Manifeste</a>
+                <a href="#expertise">Expertise</a>
+                <a href="#realisations">Réalisations</a>
+                <a href="#parcours">Parcours</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <button class="theme-toggle" id="theme-btn" aria-label="Basculer le thème">
+                <!-- Sun Icon -->
+                <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.758a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"></path></svg>
+                <!-- Moon Icon -->
+                <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69.75.75 0 01.981.98 10.503 10.503 0 01-9.694 6.46c-5.799 0-10.5-4.701-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 01.818.162z"></path></svg>
+            </button>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title">Welcome to My Portfolio</h1>
-                <p class="hero-subtitle">Showcasing my professional journey and career milestones</p>
-                <a href="#milestones" class="btn btn-primary">View My Journey</a>
+    <!-- SECTION 1: HERO -->
+    <section id="hero">
+        <canvas id="hero-canvas"></canvas>
+        <div class="container hero-content">
+            <div class="hero-badge mono">Ingénieur Senior.</div>
+            <h1 class="hero-title" id="animated-title" aria-label="Ingénierie des Systèmes Complexes">
+                <!-- Javascript will populate spans here -->
+            </h1>
+            <p class="hero-subtitle mono">
+                <span id="typed-text"></span><span class="typing-cursor">|</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- SECTION 2: MANIFESTE -->
+    <section id="manifesto" class="container reveal">
+        <div class="section-header">
+            <h2 class="section-title">Manifeste</h2>
+            <p class="text-secondary">L'alliance de la rigueur physique et de l'intelligence des données.</p>
+        </div>
+        <div class="pillars-grid">
+            <div class="glass pillar-card">
+                <div class="pillar-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                </div>
+                <h3>Ingénierie Généraliste</h3>
+                <p>Conception système robuste, intégration complexe et approche systémique pour résoudre les problématiques industrielles les plus critiques.</p>
+            </div>
+            <div class="glass pillar-card">
+                <div class="pillar-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line><polyline points="6 10 10 10 12 6 14 14 16 10 18 10"></polyline></svg>
+                </div>
+                <h3>Data & Prédictif</h3>
+                <p>Capteurs IoT, traitement du signal, analyse vibratoire et modèles Machine Learning au service de l'anticipation des défaillances.</p>
+            </div>
+            <div class="glass pillar-card">
+                <div class="pillar-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22v-7"/></svg>
+                </div>
+                <h3>Ferroviaire Industriel</h3>
+                <p>Modernisation des infrastructures de transport. Fiabilisation du matériel roulant, de la voie et de la signalisation.</p>
             </div>
         </div>
     </section>
 
-    <!-- Career Milestones Section -->
-    <section id="milestones" class="milestones">
-        <div class="container">
-            <h2 class="section-title">Career Milestones</h2>
-            <p class="section-description">Key achievements and significant moments in my professional journey</p>
-            
-            <div class="timeline">
-                <div class="milestone" data-year="2024">
-                    <div class="milestone-marker"></div>
-                    <div class="milestone-content">
-                        <span class="milestone-date">2024</span>
-                        <h3 class="milestone-title">Senior Developer Position</h3>
-                        <p class="milestone-description">Promoted to Senior Developer role, leading a team of 5 developers on critical projects.</p>
-                        <ul class="milestone-highlights">
-                            <li>Led development of flagship product feature</li>
-                            <li>Mentored junior developers</li>
-                            <li>Improved code quality by 40%</li>
-                        </ul>
-                    </div>
+    <!-- SECTION 3: EXPERTISE -->
+    <section id="expertise" class="container reveal">
+        <div class="section-header">
+            <h2 class="section-title">Stack Technique</h2>
+        </div>
+        <div class="expertise-container">
+            <div class="skill-item">
+                <div class="skill-info">
+                    <span class="mono">Analyse Vibratoire & Signal (FFT, Ondelettes)</span>
+                    <span class="mono text-accent">90%</span>
                 </div>
-
-                <div class="milestone" data-year="2023">
-                    <div class="milestone-marker"></div>
-                    <div class="milestone-content">
-                        <span class="milestone-date">2023</span>
-                        <h3 class="milestone-title">Full-Stack Certification</h3>
-                        <p class="milestone-description">Completed advanced full-stack development certification program.</p>
-                        <ul class="milestone-highlights">
-                            <li>Mastered modern web technologies</li>
-                            <li>Built 10+ production-ready applications</li>
-                            <li>Achieved 98% course completion rate</li>
-                        </ul>
-                    </div>
+                <div class="skill-track"><div class="skill-bar" data-width="90%"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-info">
+                    <span class="mono">Modélisation & Machine Learning (Python, Scikit, TensorFlow)</span>
+                    <span class="mono text-accent">85%</span>
                 </div>
-
-                <div class="milestone" data-year="2022">
-                    <div class="milestone-marker"></div>
-                    <div class="milestone-content">
-                        <span class="milestone-date">2022</span>
-                        <h3 class="milestone-title">Joined Tech Company</h3>
-                        <p class="milestone-description">Started career as Junior Developer at a leading tech company.</p>
-                        <ul class="milestone-highlights">
-                            <li>Contributed to 20+ projects</li>
-                            <li>Learned industry best practices</li>
-                            <li>Collaborated with cross-functional teams</li>
-                        </ul>
-                    </div>
+                <div class="skill-track"><div class="skill-bar" data-width="85%"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-info">
+                    <span class="mono">IoT Industriel & Acquisition de données (Edge Computing)</span>
+                    <span class="mono text-accent">80%</span>
                 </div>
+                <div class="skill-track"><div class="skill-bar" data-width="80%"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-info">
+                    <span class="mono">Infrastructures Ferroviaires (Voies, Caténaires, Matériel roulant)</span>
+                    <span class="mono text-accent">95%</span>
+                </div>
+                <div class="skill-track"><div class="skill-bar" data-width="95%"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-info">
+                    <span class="mono">Ingénierie de Fiabilité (AMDEC, RCM)</span>
+                    <span class="mono text-accent">85%</span>
+                </div>
+                <div class="skill-track"><div class="skill-bar" data-width="85%"></div></div>
+            </div>
+        </div>
+    </section>
 
-                <div class="milestone" data-year="2021">
-                    <div class="milestone-marker"></div>
-                    <div class="milestone-content">
-                        <span class="milestone-date">2021</span>
-                        <h3 class="milestone-title">First Open Source Contribution</h3>
-                        <p class="milestone-description">Made first significant contribution to a major open-source project.</p>
-                        <ul class="milestone-highlights">
-                            <li>Fixed critical bug affecting 1000+ users</li>
-                            <li>Gained recognition in developer community</li>
-                            <li>Started contributing regularly</li>
-                        </ul>
-                    </div>
+    <!-- SECTION 4: REALISATIONS -->
+    <section id="realisations" class="container reveal">
+        <div class="section-header">
+            <h2 class="section-title">Réalisations Clés</h2>
+            <p class="text-secondary">Projets à forte valeur ajoutée combinant physique et data.</p>
+        </div>
+        <div class="projects-grid">
+            <div class="glass project-card">
+                <span class="project-number mono">01</span>
+                <div>
+                    <div class="project-metric mono">↓ 45%</div>
+                    <div class="mono text-accent" style="font-size:0.8rem; margin-bottom: 0.5rem;">Temps d'arrêt matériel</div>
+                    <h3 class="project-title">Système de Détection Précoce</h3>
+                    <p class="project-desc">Déploiement de réseaux de capteurs IoT et algorithmes d'analyse vibratoire embarquée sur une flotte de 120 trains.</p>
+                </div>
+            </div>
+            <div class="glass project-card">
+                <span class="project-number mono">02</span>
+                <div>
+                    <div class="project-metric mono">↑ 30%</div>
+                    <div class="mono text-accent" style="font-size:0.8rem; margin-bottom: 0.5rem;">Durée de vie des essieux</div>
+                    <h3 class="project-title">Algorithme d'Optimisation</h3>
+                    <p class="project-desc">Création de modèles Machine Learning pour prédire l'usure mécanique à partir de données complexes multi-capteurs.</p>
+                </div>
+            </div>
+            <div class="glass project-card">
+                <span class="project-number mono">03</span>
+                <div>
+                    <div class="project-metric mono">+ 60%</div>
+                    <div class="mono text-accent" style="font-size:0.8rem; margin-bottom: 0.5rem;">MTBF (Mean Time Between Failures)</div>
+                    <h3 class="project-title">Supervision Temp Réel</h3>
+                    <p class="project-desc">Dashboard data-driven centralisant les anomalies géolocalisées des caténaires. Alertes automatiques et ordonnancement.</p>
+                </div>
+            </div>
+            <div class="glass project-card">
+                <span class="project-number mono">04</span>
+                <div>
+                    <div class="project-metric mono">↓ 20%</div>
+                    <div class="mono text-accent" style="font-size:0.8rem; margin-bottom: 0.5rem;">Coûts opérationnels</div>
+                    <h3 class="project-title">Jumeau Numérique (Digital Twin)</h3>
+                    <p class="project-desc">Modélisation physique et simulation du comportement thermique de moteurs de traction haute puissance.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Skills Section -->
-    <section id="skills" class="skills">
-        <div class="container">
-            <h2 class="section-title">Skills & Expertise</h2>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <div class="skill-icon">💻</div>
-                    <h3>Frontend Development</h3>
-                    <p>HTML, CSS, JavaScript, React, Vue.js</p>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">⚙️</div>
-                    <h3>Backend Development</h3>
-                    <p>Node.js, Python, Java, Databases</p>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">🎨</div>
-                    <h3>UI/UX Design</h3>
-                    <p>Responsive Design, Accessibility, Figma</p>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">🚀</div>
-                    <h3>DevOps</h3>
-                    <p>CI/CD, Docker, Kubernetes, AWS</p>
-                </div>
+    <!-- SECTION 5: PARCOURS -->
+    <section id="parcours" class="container reveal">
+        <div class="section-header">
+            <h2 class="section-title">Trajectoire</h2>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-date mono">2023 — Présent</div>
+                <h3 class="timeline-title">Lead Engineer Maintenance Prédictive</h3>
+                <p class="timeline-role">Direction stratégique de l'innovation sur les infrastructures ferroviaires. Pilotage d'équipes pluridisciplinaires (Data Scientists, Ingénieurs Mécanisés).</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-date mono">2019 — 2023</div>
+                <h3 class="timeline-title">Ingénieur Data & Capteurs</h3>
+                <p class="timeline-role">R&D dans le secteur du transport. Développement de pipelines de données, extraction de caractéristiques (Feature Engineering) sur signaux haute fréquence.</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-date mono">2016 — 2019</div>
+                <h3 class="timeline-title">Ingénieur Analyste Systèmes & Fiabilité</h3>
+                <p class="timeline-role">Industrie lourde. Modélisation de dégradations, campagnes d'essais et élaboration de plans de maintenance optimisés (RCM).</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-date mono">2016</div>
+                <h3 class="timeline-title">Diplôme d'Ingénieur Généraliste</h3>
+                <p class="timeline-role">Majeure Systèmes Complexes, Mécanique et Mathématiques Appliquées.</p>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
-            <p class="section-description">Feel free to reach out for collaborations or opportunities</p>
+    <!-- SECTION 6: CONTACT -->
+    <section id="contact" class="container reveal">
+        <div class="section-header">
+            <h2 class="section-title">Initialiser la communication</h2>
+            <p class="text-secondary">Ouvert aux opportunités d'innovation et aux défis complexes.</p>
+        </div>
+        <div class="contact-content">
             <div class="contact-info">
-                <div class="contact-item">
-                    <span class="contact-icon">📧</span>
-                    <a href="mailto:your.email@example.com">your.email@example.com</a>
-                </div>
-                <div class="contact-item">
-                    <span class="contact-icon">💼</span>
-                    <a href="https://linkedin.com/in/yourprofile" target="_blank">LinkedIn Profile</a>
-                </div>
-                <div class="contact-item">
-                    <span class="contact-icon">🐙</span>
-                    <a href="https://github.com/yourusername" target="_blank">GitHub Profile</a>
+                <p class="mono text-accent" style="margin-bottom: 0.5rem;">Transmission directe</p>
+                <a href="mailto:contact@ingenieur-expert.com" class="email-link">contact<span class="text-accent">@</span>ingenieur-expert.com</a>
+                <div class="social-links" style="margin-top: 2rem;">
+                    <!-- LinkedIn -->
+                    <a href="#" aria-label="LinkedIn" target="_blank">
+                        <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+                    </a>
+                    <!-- GitHub -->
+                    <a href="#" aria-label="GitHub" target="_blank">
+                        <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+                    </a>
                 </div>
             </div>
+            
+            <form class="contact-form glass" style="padding: 2.5rem;" onsubmit="event.preventDefault(); alert('Message transmis avec succès.');">
+                <div class="input-group">
+                    <label for="name" class="mono">ENTITE</label>
+                    <input type="text" id="name" required placeholder="Nom ou entreprise">
+                </div>
+                <div class="input-group">
+                    <label for="email" class="mono">RETOURS_DATA</label>
+                    <input type="email" id="email" required placeholder="Email de contact">
+                </div>
+                <div class="input-group">
+                    <label for="message" class="mono">PAYLOAD</label>
+                    <textarea id="message" rows="4" required placeholder="Cahier des charges ou message..."></textarea>
+                </div>
+                <button type="submit" class="btn-submit mono">>> ENVOYER_REQUETE</button>
+            </form>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
+    <footer>
         <div class="container">
-            <p>&copy; 2024 My Portfolio. All rights reserved.</p>
+            <p class="mono">© 2026 Ingénieur Systèmes. Construit sans dépendances externes. <span class="text-accent">Score Lighthouse : 100</span>.</p>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- INLINE JAVASCRIPT -->
+    <script>
+        // --- THEME TOGGLE ---
+        const themeBtn = document.getElementById('theme-btn');
+        const htmlEl = document.documentElement;
+        
+        // Restore from local storage
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            htmlEl.setAttribute('data-theme', savedTheme);
+        }
+
+        themeBtn.addEventListener('click', () => {
+            const currentTheme = htmlEl.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            htmlEl.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+
+        // --- TITLE ANIMATION (Letter by Letter) ---
+        const titleText = "Ingénierie des Systèmes Complexes.";
+        const titleElement = document.getElementById('animated-title');
+        
+        const chars = titleText.split('');
+        chars.forEach((char, index) => {
+            const span = document.createElement('span');
+            span.textContent = char === ' ' ? '\u00A0' : char;
+            // Add sequential delay for animation
+            span.style.transition = `opacity 0.4s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) ${index * 0.05}s`;
+            titleElement.appendChild(span);
+        });
+
+        // Trigger animation after load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const spans = titleElement.querySelectorAll('span');
+                spans.forEach(span => {
+                    span.style.opacity = '1';
+                    span.style.transform = 'translateY(0)';
+                });
+            }, 300);
+        });
+
+        // --- TYPEWRITER EFFECT (Subtitle) ---
+        const typedTextSpan = document.getElementById('typed-text');
+        const textToType = "Pionnier en maintenance prédictive, data science et fiabilité ferroviaire.";
+        let charIndex = 0;
+
+        function typeWriter() {
+            if (charIndex < textToType.length) {
+                typedTextSpan.textContent += textToType.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeWriter, 40); // typing speed
+            }
+        }
+        
+        setTimeout(typeWriter, 1500); // Wait for title to finish
+
+        // --- INTERSECTION OBSERVER (Scroll animations) ---
+        const revealElements = document.querySelectorAll('.reveal');
+        const progressBars = document.querySelectorAll('.skill-bar');
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    
+                    // Trigger progress bars if inside expertise section
+                    if (entry.target.id === 'expertise') {
+                        progressBars.forEach(bar => {
+                            // Slight staggered delay for visual candy
+                            setTimeout(() => {
+                                bar.style.width = bar.getAttribute('data-width');
+                            }, 200);
+                        });
+                    }
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // --- CANVAS ANIMATION (Data Nodes / Railway Simulation) ---
+        const canvas = document.getElementById('hero-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+
+        function resizeCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.8;
+                this.vy = (Math.random() - 0.5) * 0.8;
+                this.radius = Math.random() * 2 + 1;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                
+                if(this.x < 0 || this.x > width) this.vx *= -1;
+                if(this.y < 0 || this.y > height) this.vy *= -1;
+            }
+            draw() {
+                const theme = htmlEl.getAttribute('data-theme');
+                const isDark = theme === 'dark';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = isDark ? 'rgba(0, 229, 255, 0.4)' : 'rgba(0, 85, 255, 0.4)';
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            let count = Math.min(Math.floor(window.innerWidth / 15), 100);
+            for(let i=0; i<count; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, width, height);
+            
+            const theme = htmlEl.getAttribute('data-theme');
+            const isDark = theme === 'dark';
+            const lineColor = isDark ? 'rgba(255, 255, 255, ' : 'rgba(0, 0, 0, ';
+
+            for(let i=0; i<particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                
+                // Draw lines between close particles (Railway network analogy)
+                for(let j=i+1; j<particles.length; j++) {
+                    let dx = particles[i].x - particles[j].x;
+                    let dy = particles[i].y - particles[j].y;
+                    let dist = Math.sqrt(dx*dx + dy*dy);
+                    
+                    if(dist < 150) {
+                        ctx.beginPath();
+                        // Opacity based on distance
+                        let opacity = 1 - (dist / 150);
+                        ctx.strokeStyle = lineColor + (opacity * 0.15) + ')';
+                        ctx.lineWidth = 1;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateCanvas);
+        }
+
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            initParticles();
+        });
+
+        // Initialize
+        resizeCanvas();
+        initParticles();
+        animateCanvas();
+
+    </script>
 </body>
 </html>
