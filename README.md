@@ -7,7 +7,6 @@ Bienvenue sur le dépôt de mon portfolio professionnel interactif, un hub centr
 - [Fonctionnalités Principales](#fonctionnalités-principales)
 - [OthmaneGPT (Assistant IA)](#othmanegpt-assistant-ia)
 - [Technologies Utilisées](#technologies-utilisées)
-- [Installation et Configuration Locale](#installation-et-configuration-locale)
 
 ## Aperçu du Projet
 Ce portfolio est pensé pour refléter mes compétences techniques : il va au-delà d'un simple CV statique. L'interface affiche l'ensemble de mon Engineering Stack, résume de manière immersive mes projets académiques et professionnels (tels que la construction d'un Jumeau Numérique ou d'un réseau de détection d'usure via ML), et inclut un assistant IA.
@@ -33,40 +32,6 @@ Il est contextuellement conscient de:
 - **3D / Shaders** : Three.js, React Three Fiber, React Three Postprocessing
 - **IA** : Google Gemini API (`@google/genai`)
 - **Icônes** : Lucide React, React Icons
-
-## Installation et Configuration Locale
-
-### Prérequis
-Assurez-vous d'avoir [Node.js](https://nodejs.org/) installé sur votre machine.
-
-### Étapes
-1. **Cloner le repository** :
-   ```bash
-   git clone https://github.com/GuyProgress/Portfolio-Website.git
-   cd Portfolio-Website
-   ```
-
-2. **Installer les dépendances** :
-   ```bash
-   npm install
-   ```
-
-3. **Configurer l'API (pour OthmaneGPT)** :
-   Créez un fichier `.env` à la racine de votre projet avec le format suivant et insérez votre clé API Gemini :
-   ```env
-   VITE_GEMINI_API_KEY=votre_cle_api_ici
-   ```
-
-4. **Lancer le serveur de développement** :
-   ```bash
-   npm run dev
-   ```
-   L'application devrait être accessible sur [http://localhost:5173/](http://localhost:5173/).
-
-5. **Compiler pour la production** :
-   ```bash
-   npm run build
-   ```
 
 ---
 *Développé pour l'industrie 4.0.*
