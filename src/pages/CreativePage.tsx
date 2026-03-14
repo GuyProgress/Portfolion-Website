@@ -13,13 +13,15 @@ const creativeCategories = [
 
 // INFO: C'est ici que vous pouvez ajouter vos propres photos ! 
 // Remplacez les liens "src" par les liens vers vos images.
+const BASE = import.meta.env.BASE_URL;
 const myPhotos = [
-  { src: 'https://images.unsplash.com/photo-1755331039789-7e5680e26e8f?q=80&w=774&auto=format&fit=crop', alt: 'Photo 1' },
-  { src: 'https://images.unsplash.com/photo-1755569309049-98410b94f66d?q=80&w=772&auto=format&fit=crop', alt: 'Photo 2' },
-  { src: 'https://images.unsplash.com/photo-1755497595318-7e5e3523854f?q=80&w=774&auto=format&fit=crop', alt: 'Photo 3' },
-  { src: 'https://images.unsplash.com/photo-1755353985163-c2a0fe5ac3d8?q=80&w=774&auto=format&fit=crop', alt: 'Photo 4' },
-  { src: 'https://images.unsplash.com/photo-1745965976680-d00be7dc0377?q=80&w=774&auto=format&fit=crop', alt: 'Photo 5' },
-  { src: 'https://images.unsplash.com/photo-1752588975228-21f44630bb3c?q=80&w=774&auto=format&fit=crop', alt: 'Photo 6' }
+  { src: `${BASE}IMG-20250719-WA0017.jpg`, alt: 'Photographie 1' },
+  { src: `${BASE}IMG-20250719-WA0022.jpg`, alt: 'Photographie 2' },
+  { src: `${BASE}IMG-20250719-WA0025.jpg`, alt: 'Photographie 3' },
+  { src: `${BASE}IMG-20250719-WA0026.jpg`, alt: 'Photographie 4' },
+  { src: `${BASE}IMG-20250719-WA0030.jpg`, alt: 'Photographie 5' },
+  { src: `${BASE}IMG_20231230_115111.jpg`, alt: 'Photographie 6' },
+  { src: `${BASE}IMG_20231230_115111_2.jpg`, alt: 'Photographie 7' }
 ];
 
 const CreativePage = ({ isDark }: { isDark: boolean }) => {
