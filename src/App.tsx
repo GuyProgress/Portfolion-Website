@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'motion/react';
-import { Activity, Database, Train, ChevronDown, Mail, Github, Linkedin, ArrowRight, ExternalLink, Terminal, Link as LinkIcon, X, Sun, Moon } from 'lucide-react';
-import Dither from './Dither';
+import { Activity, Database, Train, ChevronDown, Mail, Github, Linkedin, ArrowRight, ExternalLink, Terminal, Link as LinkIcon, X, Sun, Moon, Cloud } from 'lucide-react';
+import { SiPython, SiCplusplus, SiPytorch, SiTensorflow, SiScikitlearn, SiSqlite, SiInfluxdb, SiGrafana, SiDocker, SiGit, SiLabview } from 'react-icons/si';
+import Aurora from './Aurora';
+import SpotlightCard from './SpotlightCard';
+import LogoLoop from './LogoLoop';
+import CardNav from './CardNav';
+import Chatbot from './Chatbot';
 
 import cafLogo from './assets/logos/caf.png';
 import ratpLogo from './assets/logos/ratp.jpg';
@@ -63,6 +68,26 @@ const PROJECTS = [
     tags: ["IA", "PyTorch", "Santé"],
     link: ""
   }
+];
+
+// --- Tech Stack Logos ---
+const TECH_LOGOS_TOP = [
+  { node: <SiPython />, title: "Python" },
+  { node: <SiCplusplus />, title: "C/C++" },
+  { node: <SiPytorch />, title: "PyTorch" },
+  { node: <SiTensorflow />, title: "TensorFlow" },
+  { node: <SiScikitlearn />, title: "Scikit-learn" },
+  { node: <span className="font-bold">MATLAB</span>, title: "MATLAB" }
+];
+
+const TECH_LOGOS_BOTTOM = [
+  { node: <SiSqlite />, title: "SQL" },
+  { node: <SiInfluxdb />, title: "InfluxDB" },
+  { node: <SiGrafana />, title: "Grafana" },
+  { node: <Cloud />, title: "AWS IoT" },
+  { node: <SiDocker />, title: "Docker" },
+  { node: <SiGit />, title: "Git" },
+  { node: <SiLabview />, title: "LabVIEW" }
 ];
 
 // --- Components ---
@@ -128,8 +153,8 @@ const SectionHeading = ({ title, subtitle, number, isDark = true }: { title: str
       <span className="font-mono text-emerald-500 text-sm">{number}</span>
       <div className={`h-px flex-1 ${isDark ? 'bg-white/10' : 'bg-black/10'}`} />
     </div>
-    <h2 className={`text-3xl md:text-4xl font-bold tracking-tight mb-4 ${isDark ? 'text-white' : 'text-zinc-900'}`}>{title}</h2>
-    <p className={`max-w-2xl text-lg ${isDark ? 'text-zinc-400' : 'text-zinc-600'}`}>{subtitle}</p>
+    <h2 className={`text-3xl md:text-4xl font-bold tracking-tight mb-4 ${isDark ? 'text-white' : 'text-black'}`}>{title}</h2>
+    <p className={`max-w-2xl text-lg font-medium ${isDark ? 'text-zinc-400' : 'text-zinc-800'}`}>{subtitle}</p>
   </div>
 );
 
@@ -151,47 +176,75 @@ export default function App() {
     <div className={`min-h-screen font-sans selection:bg-emerald-500/30 overflow-hidden transition-colors duration-500
       ${isDark ? 'bg-zinc-950 text-zinc-50' : 'bg-zinc-50 text-zinc-900'}
     `}>
-      {/* Background Dither */}
-      <div className="fixed inset-0 z-0 pointer-events-none" style={{ opacity: isDark ? 0.3 : 0.6 }}>
-        <Dither
-          waveColor={isDark ? [0.5, 0.5, 0.5] : [0.8, 0.8, 0.8]}
-          disableAnimation={false}
-          enableMouseInteraction={false}
-          colorNum={4}
-          waveAmplitude={0.3}
-          waveFrequency={3}
-          waveSpeed={0.05}
+      {/* Background Aurora */}
+      <div className="fixed inset-0 z-0 pointer-events-none" style={{ opacity: isDark ? 0.4 : 0.8 }}>
+        <Aurora
+          colorStops={
+            isDark 
+              ? ['#10b981', '#047857', '#064e3b'] // Dark mode: Emerald gradients
+              : ['#a7f3d0', '#6ee7b7', '#34d399'] // Light mode: Lighter emerald gradients
+          }
+          blend={0.5}
+          amplitude={1.2}
+          speed={0.8}
         />
       </div>
 
       {/* Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 border-b backdrop-blur-xl transition-colors
-        ${isDark ? 'border-white/5 bg-zinc-950/50' : 'border-black/5 bg-white/50'}
-      `}>
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="font-mono text-sm font-bold tracking-tighter flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            SYS.ENG
-          </div>
-          <div className="hidden md:flex items-center gap-8 text-sm font-medium">
-            <a href="#manifeste" className={`transition-colors ${isDark ? 'text-zinc-400 hover:text-zinc-50' : 'text-zinc-500 hover:text-zinc-900'}`}>Manifeste</a>
-            <a href="#expertise" className={`transition-colors ${isDark ? 'text-zinc-400 hover:text-zinc-50' : 'text-zinc-500 hover:text-zinc-900'}`}>Expertise</a>
-            <a href="#projets" className={`transition-colors ${isDark ? 'text-zinc-400 hover:text-zinc-50' : 'text-zinc-500 hover:text-zinc-900'}`}>Projets</a>
-            <a href="#parcours" className={`transition-colors ${isDark ? 'text-zinc-400 hover:text-zinc-50' : 'text-zinc-500 hover:text-zinc-900'}`}>Parcours</a>
-            <a href="#contact" className="hover:text-emerald-500 transition-colors">Contact</a>
-          </div>
-          
-          <button 
+      <div className="fixed top-4 left-0 right-0 z-50 px-4 flex justify-center w-full">
+        <CardNav
+          logo={null}
+          logoText="Arts et métiers engineer"
+          items={[
+            {
+              label: "Manifeste & Parcours",
+              bgColor: isDark ? "#0D0716" : "#f1f5f9",
+              textColor: isDark ? "#fff" : "#0f172a",
+              links: [
+                { label: "Manifeste", ariaLabel: "Aller au Manifeste", href: "#manifeste" },
+                { label: "Parcours", ariaLabel: "Aller au Parcours", href: "#parcours" }
+              ]
+            },
+            {
+              label: "Expertise & Projets",
+              bgColor: isDark ? "#170D27" : "#e2e8f0",
+              textColor: isDark ? "#fff" : "#0f172a",
+              links: [
+                { label: "Expertise Technique", ariaLabel: "Voir l'expertise technique", href: "#expertise" },
+                { label: "Projets Professionnels", ariaLabel: "Voir les projets pro", href: "#projets" }
+              ]
+            },
+            {
+              label: "Contact & Paramètres",
+              bgColor: isDark ? "#271E37" : "#cbd5e1",
+              textColor: isDark ? "#fff" : "#0f172a",
+              links: [
+                { label: "Me contacter", ariaLabel: "Email us", href: "#contact" },
+                { label: "GitHub", ariaLabel: "GitHub Profile", href: "https://github.com/GuyProgress" },
+                { label: "LinkedIn", ariaLabel: "LinkedIn Profile", href: "https://www.linkedin.com/in/othmane-el-houdaigui-887909212/" },
+              ]
+            }
+          ]}
+          baseColor={isDark ? "rgba(24, 24, 27, 0.8)" : "rgba(255, 255, 255, 0.8)"}
+          menuColor={isDark ? "#fff" : "#000"}
+          buttonBgColor={isDark ? "#10b981" : "#10b981"}
+          buttonTextColor={isDark ? "#000" : "#fff"}
+          ease="power3.out"
+          className="w-full max-w-7xl backdrop-blur-xl"
+        />
+
+        <div className="absolute right-8 top-4">
+          <button
             onClick={toggleTheme}
-            className={`p-2 rounded-full transition-colors
-              ${isDark ? 'bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-zinc-50' : 'bg-black/5 hover:bg-black/10 text-zinc-500 hover:text-zinc-900'}
+            className={`p-2 rounded-full transition-colors backdrop-blur-md
+              ${isDark ? 'bg-white/10 hover:bg-white/20 text-emerald-400 hover:text-emerald-300 border border-white/10' : 'bg-black/5 hover:bg-black/10 text-emerald-600 hover:text-emerald-700 border border-black/10 shadow-sm'}
             `}
             aria-label="Toggle theme"
           >
             {isDark ? <Sun size={18} /> : <Moon size={18} />}
           </button>
         </div>
-      </nav>
+      </div>
 
       <main className="relative z-10">
 
@@ -215,7 +268,7 @@ export default function App() {
 
               <AnimatedTitle text="Othmane EL HOUDAIGUI" />
 
-              <div className={`text-xl md:text-2xl font-light mb-12 h-20 ${isDark ? 'text-zinc-400' : 'text-zinc-600'}`}>
+              <div className={`text-xl md:text-2xl font-medium mb-12 h-20 ${isDark ? 'text-zinc-400 font-light' : 'text-zinc-800 font-medium'}`}>
                 <TypewriterText text="Ingénieur généraliste.  systèmes IoT, IA et maintenance ferroviaire." delay={1.5} />
               </div>
 
@@ -225,10 +278,10 @@ export default function App() {
                 transition={{ delay: 3, duration: 0.8 }}
                 className="flex flex-wrap items-center gap-4"
               >
-                <a href="#projets" className={`px-6 py-3 font-medium rounded-lg transition-colors flex items-center gap-2 ${isDark ? 'bg-zinc-50 text-zinc-950 hover:bg-zinc-200' : 'bg-zinc-900 text-white hover:bg-zinc-800'}`}>
+                <a href="#projets" className={`px-6 py-3 font-medium rounded-lg transition-colors flex items-center gap-2 ${isDark ? 'bg-zinc-50 text-zinc-950 hover:bg-zinc-200' : 'bg-black text-white hover:bg-zinc-800'}`}>
                   Voir les réalisations <ArrowRight size={18} />
                 </a>
-                <a href="#contact" className={`px-6 py-3 font-medium rounded-lg transition-colors border ${isDark ? 'bg-white/5 border-white/10 hover:bg-white/10' : 'bg-black/5 border-black/10 hover:bg-black/10 text-zinc-900'}`}>
+                <a href="#contact" className={`px-6 py-3 font-medium rounded-lg transition-colors border ${isDark ? 'bg-white/5 border-white/10 hover:bg-white/10' : 'bg-black/5 border-black/10 hover:bg-black/10 text-black'}`}>
                   Me contacter
                 </a>
               </motion.div>
@@ -283,8 +336,8 @@ export default function App() {
                   <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform ${isDark ? 'bg-white/5' : 'bg-black/5'}`}>
                     {pillar.icon}
                   </div>
-                  <h3 className={`text-xl font-semibold mb-3 ${isDark ? 'text-white' : 'text-zinc-900'}`}>{pillar.title}</h3>
-                  <p className={`leading-relaxed ${isDark ? 'text-zinc-400' : 'text-zinc-600'}`}>{pillar.desc}</p>
+                  <h3 className={`text-xl font-bold mb-3 ${isDark ? 'text-white' : 'text-black'}`}>{pillar.title}</h3>
+                  <p className={`leading-relaxed font-medium ${isDark ? 'text-zinc-400' : 'text-zinc-800'}`}>{pillar.desc}</p>
                 </motion.div>
               ))}
             </div>
@@ -303,7 +356,7 @@ export default function App() {
 
             <div className="grid md:grid-cols-2 gap-6 md:gap-12">
               {/* Engineering Stack */}
-              <div className={`glass-card p-8 relative overflow-hidden ${isDark ? 'bg-white/5 border-white/10' : 'bg-white/80 border-black/10 shadow-sm'}`}>
+              <SpotlightCard className={`glass-card p-8 h-full relative overflow-hidden ${isDark ? 'bg-white/5 border-white/10' : 'bg-white/80 border-black/10 shadow-sm'}`} spotlightColor={isDark ? "rgba(16, 185, 129, 0.15)" : "rgba(16, 185, 129, 0.08)"}>
                 <div className="absolute top-0 right-0 p-4 opacity-10">
                   <Activity size={120} className={isDark ? "text-white" : "text-emerald-500"} />
                 </div>
@@ -326,37 +379,48 @@ export default function App() {
                     </span>
                   ))}
                 </div>
-              </div>
+              </SpotlightCard>
 
               {/* Stack Technologique */}
-              <div className={`glass-card p-8 relative overflow-hidden ${isDark ? 'bg-white/5 border-white/10' : 'bg-white/80 border-black/10 shadow-sm'}`}>
+              <SpotlightCard className={`glass-card p-8 h-full relative overflow-hidden ${isDark ? 'bg-white/5 border-white/10' : 'bg-white/80 border-black/10 shadow-sm'}`} spotlightColor={isDark ? "rgba(59, 130, 246, 0.15)" : "rgba(59, 130, 246, 0.08)"}>
                 <div className="absolute top-0 right-0 p-4 opacity-10">
                   <Terminal size={120} className={isDark ? "text-white" : "text-blue-500"} />
                 </div>
                 <h3 className={`text-lg font-semibold mb-6 flex items-center gap-2 ${isDark ? 'text-white' : 'text-zinc-900'}`}>
                   <Terminal size={18} className="text-blue-400" /> Stack Technologique
                 </h3>
-                <div className="flex flex-wrap gap-2 relative z-10">
-                  {[
-                    { tech: 'Python', color: 'text-blue-500 bg-blue-500/10 border-blue-500/20' },
-                    { tech: 'C/C++', color: 'text-indigo-500 bg-indigo-500/10 border-indigo-500/20' },
-                    { tech: 'PyTorch / TF', color: 'text-red-500 bg-red-500/10 border-red-500/20' },
-                    { tech: 'Scikit-learn', color: 'text-orange-500 bg-orange-500/10 border-orange-500/20' },
-                    { tech: 'MATLAB', color: 'text-orange-500 bg-orange-500/10 border-orange-500/20' },
-                    { tech: 'SQL', color: 'text-purple-500 bg-purple-500/10 border-purple-500/20' },
-                    { tech: 'InfluxDB', color: 'text-cyan-500 bg-cyan-500/10 border-cyan-500/20' },
-                    { tech: 'Grafana', color: 'text-amber-500 bg-amber-500/10 border-amber-500/20' },
-                    { tech: 'AWS IoT', color: 'text-yellow-500 bg-yellow-500/10 border-yellow-500/20' },
-                    { tech: 'Docker', color: 'text-sky-500 bg-sky-500/10 border-sky-500/20' },
-                    { tech: 'Git', color: 'text-red-500 bg-red-500/10 border-red-500/20' },
-                    { tech: 'LabVIEW', color: 'text-amber-600 bg-amber-600/10 border-amber-600/20' }
-                  ].map((item) => (
-                    <span key={item.tech} className={`px-3 py-1.5 border rounded-md text-sm font-mono ${!isDark ? item.color.replace('500', '600') : item.color} transition-colors`}>
-                      {item.tech}
-                    </span>
-                  ))}
+                
+                <div className="relative h-48 w-full mt-4 flex flex-col gap-6">
+                  <div className="h-16 relative">
+                    <LogoLoop
+                      logos={TECH_LOGOS_TOP}
+                      speed={50}
+                      direction="left"
+                      logoHeight={40}
+                      gap={40}
+                      hoverSpeed={0}
+                      scaleOnHover={true}
+                      fadeOut={true}
+                      fadeOutColor={isDark ? "rgb(24, 24, 27)" : "rgb(255, 255, 255)"}
+                      ariaLabel="Technology partners top"
+                    />
+                  </div>
+                  <div className="h-16 relative">
+                    <LogoLoop
+                      logos={TECH_LOGOS_BOTTOM}
+                      speed={50}
+                      direction="right"
+                      logoHeight={40}
+                      gap={40}
+                      hoverSpeed={0}
+                      scaleOnHover={true}
+                      fadeOut={true}
+                      fadeOutColor={isDark ? "rgb(24, 24, 27)" : "rgb(255, 255, 255)"}
+                      ariaLabel="Technology partners bottom"
+                    />
+                  </div>
                 </div>
-              </div>
+              </SpotlightCard>
             </div>
           </div>
         </section>
@@ -391,12 +455,12 @@ export default function App() {
                   </div>
 
                   <div className="p-6 flex flex-col flex-1">
-                    <h3 className={`text-xl font-semibold transition-colors mb-3 ${isDark ? 'group-hover:text-emerald-400' : 'text-zinc-900 group-hover:text-emerald-600'}`}>{project.title}</h3>
-                    <p className={`text-sm leading-relaxed flex-1 mb-6 ${isDark ? 'text-zinc-400' : 'text-zinc-600'}`}>{project.desc}</p>
+                    <h3 className={`text-xl font-bold transition-colors mb-3 ${isDark ? 'group-hover:text-emerald-400 text-white' : 'text-black group-hover:text-emerald-700'}`}>{project.title}</h3>
+                    <p className={`text-sm font-medium leading-relaxed flex-1 mb-6 ${isDark ? 'text-zinc-400' : 'text-zinc-800'}`}>{project.desc}</p>
                     <div className="flex flex-wrap gap-2 mt-auto">
                       {project.tags.map(tag => (
-                        <span key={tag} className={`text-xs font-mono px-2 py-1 rounded border
-                          ${isDark ? 'text-zinc-500 bg-black/40 border-white/5' : 'text-zinc-600 bg-zinc-100 border-zinc-200'}
+                        <span key={tag} className={`text-xs font-bold font-mono px-2 py-1 rounded border
+                          ${isDark ? 'text-zinc-500 bg-black/40 border-white/5' : 'text-zinc-800 bg-zinc-200 border-zinc-300'}
                         `}>
                           {tag}
                         </span>
@@ -436,12 +500,12 @@ export default function App() {
                   </div>
 
                   <div className="p-6 flex flex-col flex-1">
-                    <h3 className={`text-xl font-semibold transition-colors mb-3 ${isDark ? 'group-hover:text-blue-400' : 'text-zinc-900 group-hover:text-blue-600'}`}>{project.title}</h3>
-                    <p className={`text-sm leading-relaxed flex-1 mb-6 ${isDark ? 'text-zinc-400' : 'text-zinc-600'}`}>{project.desc}</p>
+                    <h3 className={`text-xl font-bold transition-colors mb-3 ${isDark ? 'group-hover:text-blue-400 text-white' : 'text-black group-hover:text-blue-700'}`}>{project.title}</h3>
+                    <p className={`text-sm font-medium leading-relaxed flex-1 mb-6 ${isDark ? 'text-zinc-400' : 'text-zinc-800'}`}>{project.desc}</p>
                     <div className="flex flex-wrap gap-2 mt-auto">
                       {project.tags.map(tag => (
-                        <span key={tag} className={`text-xs font-mono px-2 py-1 rounded border
-                          ${isDark ? 'text-zinc-500 bg-zinc-900 border-white/5' : 'text-zinc-600 bg-zinc-100 border-zinc-200'}
+                        <span key={tag} className={`text-xs font-bold font-mono px-2 py-1 rounded border
+                          ${isDark ? 'text-zinc-500 bg-zinc-900 border-white/5' : 'text-zinc-800 bg-zinc-200 border-zinc-300'}
                         `}>
                           {tag}
                         </span>
@@ -511,9 +575,9 @@ export default function App() {
                         <img src={item.logo} alt={item.company} className="h-full w-auto object-contain invert-0" />
                       </div>
                     </div>
-                    <h3 className={`text-xl font-bold mt-2 mb-1 ${isDark ? 'text-zinc-100' : 'text-zinc-900'}`}>{item.role}</h3>
-                    <div className={`font-medium mb-3 ${isDark ? 'text-zinc-300' : 'text-zinc-700'}`}>{item.company}</div>
-                    <p className={`text-sm leading-relaxed max-w-2xl ${isDark ? 'text-zinc-400' : 'text-zinc-600'}`}>{item.desc}</p>
+                    <h3 className={`text-xl font-bold mt-2 mb-1 ${isDark ? 'text-zinc-100' : 'text-black'}`}>{item.role}</h3>
+                    <div className={`font-bold mb-3 ${isDark ? 'text-zinc-300' : 'text-zinc-800'}`}>{item.company}</div>
+                    <p className={`text-sm font-medium leading-relaxed max-w-2xl ${isDark ? 'text-zinc-400' : 'text-zinc-900'}`}>{item.desc}</p>
                   </motion.div>
                 ))}
               </div>
@@ -524,33 +588,84 @@ export default function App() {
         {/* ⑥ Contact */}
         <section id="contact" className={`py-24 md:py-32 transition-colors`}>
           <div className="max-w-7xl mx-auto px-6">
-            <div className={`glass-card p-8 md:p-16 text-center max-w-3xl mx-auto relative overflow-hidden transition-colors ${isDark ? 'bg-white/5 border-white/10' : 'bg-white/80 border-black/10 shadow-sm'}`}>
+            <div className={`glass-card p-8 md:p-16 relative overflow-hidden transition-colors ${isDark ? 'bg-white/5 border-white/10' : 'bg-white/80 border-black/10 shadow-sm'}`}>
               <div className="absolute inset-0 bg-gradient-to-b from-emerald-500/5 to-transparent pointer-events-none" />
 
-              <h2 className={`text-3xl md:text-5xl font-bold tracking-tighter mb-6 ${isDark ? 'text-white' : 'text-zinc-900'}`}>Prêt à optimiser vos systèmes ?</h2>
-              <p className={`mb-10 max-w-xl mx-auto ${isDark ? 'text-zinc-400' : 'text-zinc-600'}`}>
-                Ouvert aux opportunités et collaborations sur des projets d'ingénierie complexes et data-driven.
-              </p>
+              <div className="grid md:grid-cols-2 gap-12 relative z-10 w-full h-full">
+                {/* Left Side: Text Details */}
+                <div className="flex flex-col h-full">
+                  <div className="mb-2">
+                    <span className="text-emerald-500 text-sm font-medium tracking-wide">Let's talk</span>
+                  </div>
+                  <h2 className={`text-5xl font-bold tracking-tight mb-8 ${isDark ? 'text-white' : 'text-black'}`}>
+                    Contact
+                  </h2>
+                  <p className={`text-lg font-medium mb-6 max-w-md ${isDark ? 'text-zinc-400' : 'text-zinc-800'}`}>
+                    Have a question or a project in mind? Feel free to reach out.
+                  </p>
+                  <p className={`text-lg font-medium mb-12 ${isDark ? 'text-zinc-400' : 'text-zinc-800'}`}>
+                    Location: <span className={isDark ? 'text-zinc-300' : 'text-black font-bold'}>Strasbourg, France</span>
+                  </p>
 
-              <a
-                href="https://linktr.ee/OthmaneElHoudaigui"
-                target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-zinc-50 text-zinc-950 font-medium rounded-lg hover:bg-zinc-200 transition-colors mb-12"
-              >
-                <LinkIcon size={20} />
-                Démarrer une conversation
-              </a>
+                  {/* Social Links Formatted Left-Aligned */}
+                  <div className="flex gap-4 mt-auto">
+                    <a href="https://github.com/GuyProgress" target="_blank" rel="noopener noreferrer" className={`p-4 rounded-xl transition-colors ${isDark ? 'bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-emerald-400' : 'bg-black/5 hover:bg-black/10 text-zinc-600 hover:text-emerald-600'}`}>
+                      <Github size={24} />
+                      <span className="sr-only">GitHub</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/othmane-el-houdaigui-887909212/" target="_blank" rel="noopener noreferrer" className={`p-4 rounded-xl transition-colors ${isDark ? 'bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-blue-400' : 'bg-black/5 hover:bg-black/10 text-zinc-600 hover:text-blue-600'}`}>
+                      <Linkedin size={24} />
+                      <span className="sr-only">LinkedIn</span>
+                    </a>
+                  </div>
+                </div>
 
-              <div className="flex justify-center gap-6">
-                <a href="https://github.com/GuyProgress" target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-full hover:bg-white/10 hover:text-emerald-400 transition-colors">
-                  <Github size={24} />
-                  <span className="sr-only">GitHub</span>
-                </a>
-                <a href="https://www.linkedin.com/in/othmane-el-houdaigui-887909212/" target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-full hover:bg-white/10 hover:text-blue-400 transition-colors">
-                  <Linkedin size={24} />
-                  <span className="sr-only">LinkedIn</span>
-                </a>
+                {/* Right Side: Form */}
+                <form 
+                  action="https://formsubmit.co/elhoudaiguiothmane1@gmail.com" 
+                  method="POST" 
+                  className="space-y-4"
+                >
+                  {/* Optional: Configuration for formsubmit to prevent captcha and redirect, disable if you want them */}
+                  {/* <input type="hidden" name="_captcha" value="false" /> */}
+                  {/* <input type="hidden" name="_next" value="https://votre-site.com/thanks" /> */}
+
+                  <div>
+                    <input 
+                      type="text" 
+                      name="name" 
+                      placeholder="Name" 
+                      required 
+                      className={`w-full p-4 rounded-lg outline-none transition-colors border ${isDark ? 'bg-zinc-950/50 border-white/10 text-zinc-100 placeholder-zinc-500 hover:border-white/20 focus:border-emerald-500' : 'bg-zinc-50 border-black/10 text-zinc-900 placeholder-zinc-400 hover:border-black/20 focus:border-emerald-500'}`}
+                    />
+                  </div>
+                  <div>
+                    <input 
+                      type="email" 
+                      name="email" 
+                      placeholder="Email" 
+                      required 
+                      className={`w-full p-4 rounded-lg outline-none transition-colors border ${isDark ? 'bg-zinc-950/50 border-white/10 text-zinc-100 placeholder-zinc-500 hover:border-white/20 focus:border-emerald-500' : 'bg-zinc-50 border-black/10 text-zinc-900 placeholder-zinc-400 hover:border-black/20 focus:border-emerald-500'}`}
+                    />
+                  </div>
+                  <div>
+                    <textarea 
+                      name="message" 
+                      placeholder="Message" 
+                      rows={6}
+                      required
+                      className={`w-full p-4 rounded-lg outline-none transition-colors border resize-none ${isDark ? 'bg-zinc-950/50 border-white/10 text-zinc-100 placeholder-zinc-500 hover:border-white/20 focus:border-emerald-500' : 'bg-zinc-50 border-black/10 text-zinc-900 placeholder-zinc-400 hover:border-black/20 focus:border-emerald-500'}`}
+                    />
+                  </div>
+                  <button 
+                    type="submit" 
+                    className={`w-full py-4 mt-2 font-medium rounded-lg transition-colors ${isDark ? 'bg-white/5 border border-white/10 text-white hover:bg-white/10' : 'bg-zinc-900 text-white hover:bg-zinc-800'}`}
+                  >
+                    Submit
+                  </button>
+                </form>
               </div>
+
             </div>
           </div>
         </section>
@@ -638,6 +753,8 @@ export default function App() {
       <footer className="border-t border-white/5 py-8 text-center text-sm text-zinc-600 font-mono">
         <p>© {new Date().getFullYear()} Othmane EL HOUDAIGUI. Construit avec précision.</p>
       </footer>
+
+      <Chatbot isDark={isDark} />
     </div>
   );
 }

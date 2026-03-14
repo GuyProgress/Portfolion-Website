@@ -1,56 +1,72 @@
+# Portfolio de Othmane EL HOUDAIGUI
 
-# Portfolio - Othmane EL HOUDAIGUI
+Bienvenue sur le dépôt de mon portfolio professionnel interactif, un hub centralisant mes projets, mon expertise et mon parcours en tant qu'Ingénieur en Systèmes, IoT, IA et Maintenance Ferroviaire. Ce site Web met en valeur mon développement à travers l'Ingénierie Mécatronique et la Data Science industrielle.
 
-Un portfolio interactif et moderne présentant mon profil d'Ingénieur Systèmes & Maintenance Prédictive, expert en IoT, IA et systèmes ferroviaires. 
+## Table des Matières
+- [Aperçu du Projet](#aperçu-du-projet)
+- [Fonctionnalités Principales](#fonctionnalités-principales)
+- [OthmaneGPT (Assistant IA)](#othmanegpt-assistant-ia)
+- [Technologies Utilisées](#technologies-utilisées)
+- [Installation et Configuration Locale](#installation-et-configuration-locale)
 
-Ce projet est conçu avec **React**, **Vite**, **Tailwind CSS** et **Framer Motion** (via `motion/react`) pour offrir une expérience fluide, dynamique et à l'esthétique "système" (mode sombre, couleurs émeraude et bleu).
+## Aperçu du Projet
+Ce portfolio est pensé pour refléter mes compétences techniques : il va au-delà d'un simple CV statique. L'interface affiche l'ensemble de mon Engineering Stack, résume de manière immersive mes projets académiques et professionnels (tels que la construction d'un Jumeau Numérique ou d'un réseau de détection d'usure via ML), et inclut un assistant IA.
 
-## 🚀 Sections du Portfolio
+## Fonctionnalités Principales
+- **Navigation Interactif et Animée** : Composant GSAP personnalisé pour un menu fluide, immersif, et responsive.
+- **Thèmes Sombre / Lumineux** : Adaptation complète des couleurs, typographies, et shader 3D pour un grand confort visuel.
+- **Micro-Animations Modernes** : Design glassmorphism avec des rendus animés et des transitions dynamiques développées à l'aide de Framer Motion.
+- **Background Dither Interactif** : Intégration de Three.js / React Three Fiber pour une expérience visuelle technique et soignée.
+- **Assistant IA (OthmaneGPT)** : Un robot conversationnel propulsé par l'API Gemini de Google, qui répond directement à vos questions sur mon parcours sans nécessiter de recherches dans la page.
 
-*   **Manifeste** : Présentation de mon approche systémique alliant l'ingénierie matérielle lourde et la valorisation de la donnée.
-*   **Expertise Technique** : Mise en avant de ma stack technologique (Python, IoT, Machine Learning, InfluxDB, Grafana, etc.) avec une interface inspirée du monitoring en temps réel.
-*   **Réalisations** : Cas concrets d'innovation et d'optimisation (Jumeau Numérique, algorithmes de diagnostic, IoT) avec leurs métriques d'impact.
-*   **Parcours** : Frise chronologique retraçant mon évolution académique et professionnelle (SNCF Réseau, Alstom, Siemens Mobility, ENSAM).
-*   **Contact** : Section connectant vers mon mail et mes profils professionnels.
+## OthmaneGPT (Assistant IA)
+Le portfolio intègre mon propre assistant personnel, développé à l'aide de l'API `@google/genai` avec le modèle `gemini-2.5-flash`.
+Il est contextuellement conscient de:
+- Mes diplômes (Arts et Métiers).
+- Mes expériences chez CAF et le Groupe RATP.
+- Ma stack technique et mes projets professionnels majeurs.
 
-## 🛠️ Stack Technique
+## Technologies Utilisées
+- **Framework Frontend** : React, Vite, TypeScript
+- **Styling** : Tailwind CSS, Vanilla CSS
+- **Animations** : Framer Motion, GSAP
+- **3D / Shaders** : Three.js, React Three Fiber, React Three Postprocessing
+- **IA** : Google Gemini API (`@google/genai`)
+- **Icônes** : Lucide React, React Icons
 
-*   **Frontend** : [React 19](https://react.dev/)
-*   **Build Tool** : [Vite](https://vitejs.dev/)
-*   **Styling** : [Tailwind CSS v4](https://tailwindcss.com/)
-*   **Animations** : [Motion](https://motion.dev/)
-*   **Icônes** : [Lucide React](https://lucide.dev/)
+## Installation et Configuration Locale
 
-## 💻 Installation & Lancement en local
+### Prérequis
+Assurez-vous d'avoir [Node.js](https://nodejs.org/) installé sur votre machine.
 
-**Prérequis :** [Node.js](https://nodejs.org/) installé sur votre machine.
+### Étapes
+1. **Cloner le repository** :
+   ```bash
+   git clone https://github.com/GuyProgress/Portfolio-Website.git
+   cd Portfolio-Website
+   ```
 
-1. **Installer les dépendances** :
+2. **Installer les dépendances** :
    ```bash
    npm install
    ```
 
-2. **Lancer le serveur de développement** :
+3. **Configurer l'API (pour OthmaneGPT)** :
+   Créez un fichier `.env` à la racine de votre projet avec le format suivant et insérez votre clé API Gemini :
+   ```env
+   VITE_GEMINI_API_KEY=votre_cle_api_ici
+   ```
+
+4. **Lancer le serveur de développement** :
    ```bash
    npm run dev
    ```
+   L'application devrait être accessible sur [http://localhost:5173/](http://localhost:5173/).
 
-3. **Prévisualiser l'application** :
-   Ouvrez [http://localhost:3000](http://localhost:3000) dans votre navigateur.
-
-## 📦 Build pour la production
-
-Pour générer une version optimisée pour la production :
-
-```bash
-npm run build
-```
-Les fichiers statiques minifiés seront générés dans le dossier `dist/`.
-
-## 📬 Contact et Liens
-
-* **Développeur / Auteur** : Othmane EL HOUDAIGUI
-* **Spécialité** : IoT, IA appliquée, Maintenance Prédictive, Industrie 4.0
+5. **Compiler pour la production** :
+   ```bash
+   npm run build
+   ```
 
 ---
-*© 2026 Othmane EL HOUDAIGUI. Construit avec précision.*
+*Développé pour l'industrie 4.0.*
