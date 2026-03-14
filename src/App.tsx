@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'motion/react';
 import { Activity, Database, Train, ChevronDown, Mail, Github, Linkedin, ArrowRight, ExternalLink, Terminal, Link as LinkIcon, X, Sun, Moon } from 'lucide-react';
+import Dither from './Dither';
 
 import cafLogo from './assets/logos/caf.png';
 import ratpLogo from './assets/logos/ratp.jpg';
@@ -121,14 +122,14 @@ const AnimatedTitle = ({ text }: { text: string }) => {
   );
 };
 
-const SectionHeading = ({ title, subtitle, number }: { title: string; subtitle: string; number: string }) => (
+const SectionHeading = ({ title, subtitle, number, isDark = true }: { title: string; subtitle: string; number: string; isDark?: boolean }) => (
   <div className="mb-16 md:mb-24">
     <div className="flex items-center gap-4 mb-4">
       <span className="font-mono text-emerald-500 text-sm">{number}</span>
-      <div className="h-px bg-white/10 flex-1" />
+      <div className={`h-px flex-1 ${isDark ? 'bg-white/10' : 'bg-black/10'}`} />
     </div>
-    <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">{title}</h2>
-    <p className="text-zinc-400 max-w-2xl text-lg">{subtitle}</p>
+    <h2 className={`text-3xl md:text-4xl font-bold tracking-tight mb-4 ${isDark ? 'text-white' : 'text-zinc-900'}`}>{title}</h2>
+    <p className={`max-w-2xl text-lg ${isDark ? 'text-zinc-400' : 'text-zinc-600'}`}>{subtitle}</p>
   </div>
 );
 
@@ -150,9 +151,18 @@ export default function App() {
     <div className={`min-h-screen font-sans selection:bg-emerald-500/30 overflow-hidden transition-colors duration-500
       ${isDark ? 'bg-zinc-950 text-zinc-50' : 'bg-zinc-50 text-zinc-900'}
     `}>
-      {/* Background Grid */}
-      <div className="fixed inset-0 z-0 pointer-events-none opacity-[0.03]"
-        style={{ backgroundImage: `linear-gradient(${isDark ? '#fff' : '#000'} 1px, transparent 1px), linear-gradient(90deg, ${isDark ? '#fff' : '#000'} 1px, transparent 1px)`, backgroundSize: '40px 40px' }} />
+      {/* Background Dither */}
+      <div className="fixed inset-0 z-0 pointer-events-none" style={{ opacity: isDark ? 0.3 : 0.6 }}>
+        <Dither
+          waveColor={isDark ? [0.5, 0.5, 0.5] : [0.8, 0.8, 0.8]}
+          disableAnimation={false}
+          enableMouseInteraction={false}
+          colorNum={4}
+          waveAmplitude={0.3}
+          waveFrequency={3}
+          waveSpeed={0.05}
+        />
+      </div>
 
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-50 border-b backdrop-blur-xl transition-colors
@@ -205,7 +215,7 @@ export default function App() {
 
               <AnimatedTitle text="Othmane EL HOUDAIGUI" />
 
-              <div className="text-xl md:text-2xl text-zinc-400 font-light mb-12 h-20">
+              <div className={`text-xl md:text-2xl font-light mb-12 h-20 ${isDark ? 'text-zinc-400' : 'text-zinc-600'}`}>
                 <TypewriterText text="Ingénieur généraliste.  systèmes IoT, IA et maintenance ferroviaire." delay={1.5} />
               </div>
 
@@ -215,10 +225,10 @@ export default function App() {
                 transition={{ delay: 3, duration: 0.8 }}
                 className="flex flex-wrap items-center gap-4"
               >
-                <a href="#projets" className="px-6 py-3 bg-zinc-50 text-zinc-950 font-medium rounded-lg hover:bg-zinc-200 transition-colors flex items-center gap-2">
+                <a href="#projets" className={`px-6 py-3 font-medium rounded-lg transition-colors flex items-center gap-2 ${isDark ? 'bg-zinc-50 text-zinc-950 hover:bg-zinc-200' : 'bg-zinc-900 text-white hover:bg-zinc-800'}`}>
                   Voir les réalisations <ArrowRight size={18} />
                 </a>
-                <a href="#contact" className="px-6 py-3 bg-white/5 border border-white/10 font-medium rounded-lg hover:bg-white/10 transition-colors">
+                <a href="#contact" className={`px-6 py-3 font-medium rounded-lg transition-colors border ${isDark ? 'bg-white/5 border-white/10 hover:bg-white/10' : 'bg-black/5 border-black/10 hover:bg-black/10 text-zinc-900'}`}>
                   Me contacter
                 </a>
               </motion.div>
@@ -241,6 +251,7 @@ export default function App() {
               number="01"
               title="Manifeste"
               subtitle="Une approche systémique où la donnée rencontre la mécanique lourde."
+              isDark={isDark}
             />
 
             <div className="grid md:grid-cols-3 gap-6">
@@ -267,13 +278,13 @@ export default function App() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ delay: i * 0.1, duration: 0.5 }}
-                  className="glass-card p-8 group hover:border-white/20 transition-colors"
+                  className={`glass-card p-8 group transition-colors ${isDark ? 'bg-white/5 border-white/10 hover:border-white/20' : 'bg-white/80 border-black/10 hover:border-black/20 shadow-sm'}`}
                 >
-                  <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform ${isDark ? 'bg-white/5' : 'bg-black/5'}`}>
                     {pillar.icon}
                   </div>
-                  <h3 className="text-xl font-semibold mb-3">{pillar.title}</h3>
-                  <p className="text-zinc-400 leading-relaxed">{pillar.desc}</p>
+                  <h3 className={`text-xl font-semibold mb-3 ${isDark ? 'text-white' : 'text-zinc-900'}`}>{pillar.title}</h3>
+                  <p className={`leading-relaxed ${isDark ? 'text-zinc-400' : 'text-zinc-600'}`}>{pillar.desc}</p>
                 </motion.div>
               ))}
             </div>
@@ -281,61 +292,66 @@ export default function App() {
         </section>
 
         {/* ③ Expertise */}
-        <section id="expertise" className="py-24 md:py-32 bg-zinc-900/30 border-y border-white/5">
+        <section id="expertise" className={`py-24 md:py-32 border-y transition-colors ${isDark ? 'bg-zinc-900/30 border-white/5' : 'bg-zinc-50 border-black/5'}`}>
           <div className="max-w-7xl mx-auto px-6">
             <SectionHeading
               number="02"
-              title="Expertise Technique"
-              subtitle="Maîtrise des outils et méthodologies de l'industrie 4.0."
+              title="Engineering Stack"
+              subtitle="Domaines d'expertise, tech stack et méthodologies de l'industrie 4.0 et de l'ingénierie système."
+              isDark={isDark}
             />
 
-            <div className="grid md:grid-cols-2 gap-12 md:gap-24">
-              <div className="space-y-8">
-                {[
-                  { name: "Analyse Vibratoire & Traitement du Signal", val: 95 },
-                  { name: "Machine Learning (Python, Scikit-learn, TF)", val: 85 },
-                  { name: "IoT & Acquisition de données (Capteurs, Edge)", val: 90 },
-                  { name: "Architecture Ferroviaire & Normes", val: 80 }
-                ].map((skill, i) => (
-                  <div key={i}>
-                    <div className="flex justify-between text-sm mb-2">
-                      <span className="font-medium">{skill.name}</span>
-                      <span className="font-mono text-zinc-500">{skill.val}%</span>
-                    </div>
-                    <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${skill.val}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1, delay: 0.2 }}
-                        className="h-full bg-gradient-to-r from-emerald-500 to-blue-500 rounded-full"
-                      />
-                    </div>
-                  </div>
-                ))}
+            <div className="grid md:grid-cols-2 gap-6 md:gap-12">
+              {/* Engineering Stack */}
+              <div className={`glass-card p-8 relative overflow-hidden ${isDark ? 'bg-white/5 border-white/10' : 'bg-white/80 border-black/10 shadow-sm'}`}>
+                <div className="absolute top-0 right-0 p-4 opacity-10">
+                  <Activity size={120} className={isDark ? "text-white" : "text-emerald-500"} />
+                </div>
+                <h3 className={`text-lg font-semibold mb-6 flex items-center gap-2 ${isDark ? 'text-white' : 'text-zinc-900'}`}>
+                  <Activity size={18} className="text-emerald-400" /> Profil Ingénieur
+                </h3>
+                <div className="flex flex-wrap gap-2 relative z-10">
+                  {[
+                    { tech: 'Analyse Vibratoire', color: 'text-emerald-500 bg-emerald-500/10 border-emerald-500/20' },
+                    { tech: 'Traitement du Signal', color: 'text-emerald-500 bg-emerald-500/10 border-emerald-500/20' },
+                    { tech: 'Ingénierie Système', color: 'text-blue-500 bg-blue-500/10 border-blue-500/20' },
+                    { tech: 'Mécatronique', color: 'text-blue-500 bg-blue-500/10 border-blue-500/20' },
+                    { tech: 'Mécanique & CAO', color: 'text-orange-500 bg-orange-500/10 border-orange-500/20' },
+                    { tech: 'Architecture Ferroviaire', color: 'text-purple-500 bg-purple-500/10 border-purple-500/20' },
+                    { tech: 'IoT & Edge', color: 'text-cyan-500 bg-cyan-500/10 border-cyan-500/20' },
+                    { tech: 'Automatique / PID', color: 'text-yellow-500 bg-yellow-500/10 border-yellow-500/20' }
+                  ].map((item) => (
+                    <span key={item.tech} className={`px-3 py-1.5 border rounded-md text-sm font-mono ${!isDark ? item.color.replace('500', '600') : item.color} transition-colors`}>
+                      {item.tech}
+                    </span>
+                  ))}
+                </div>
               </div>
 
-              <div className="glass-card p-8 relative overflow-hidden">
-                <div className="absolute top-0 right-0 p-4 opacity-20">
-                  <Activity size={120} />
+              {/* Stack Technologique */}
+              <div className={`glass-card p-8 relative overflow-hidden ${isDark ? 'bg-white/5 border-white/10' : 'bg-white/80 border-black/10 shadow-sm'}`}>
+                <div className="absolute top-0 right-0 p-4 opacity-10">
+                  <Terminal size={120} className={isDark ? "text-white" : "text-blue-500"} />
                 </div>
-                <h3 className="text-lg font-semibold mb-6 flex items-center gap-2">
-                  <Terminal size={18} className="text-emerald-400" /> Stack Technologique
+                <h3 className={`text-lg font-semibold mb-6 flex items-center gap-2 ${isDark ? 'text-white' : 'text-zinc-900'}`}>
+                  <Terminal size={18} className="text-blue-400" /> Stack Technologique
                 </h3>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 relative z-10">
                   {[
-                    { tech: 'Python', color: 'text-blue-400 bg-blue-400/10 border-blue-400/20' },
-                    { tech: 'C/C++', color: 'text-indigo-400 bg-indigo-400/10 border-indigo-400/20' },
-                    { tech: 'MATLAB', color: 'text-orange-400 bg-orange-400/10 border-orange-400/20' },
-                    { tech: 'SQL', color: 'text-purple-400 bg-purple-400/10 border-purple-400/20' },
-                    { tech: 'InfluxDB', color: 'text-cyan-400 bg-cyan-400/10 border-cyan-400/20' },
-                    { tech: 'Grafana', color: 'text-amber-400 bg-amber-400/10 border-amber-400/20' },
-                    { tech: 'AWS IoT', color: 'text-yellow-400 bg-yellow-400/10 border-yellow-400/20' },
-                    { tech: 'Docker', color: 'text-sky-400 bg-sky-400/10 border-sky-400/20' },
-                    { tech: 'Git', color: 'text-red-400 bg-red-400/10 border-red-400/20' },
-                    { tech: 'LabVIEW', color: 'text-yellow-500 bg-yellow-500/10 border-yellow-500/20' }
+                    { tech: 'Python', color: 'text-blue-500 bg-blue-500/10 border-blue-500/20' },
+                    { tech: 'C/C++', color: 'text-indigo-500 bg-indigo-500/10 border-indigo-500/20' },
+                    { tech: 'PyTorch / TF', color: 'text-red-500 bg-red-500/10 border-red-500/20' },
+                    { tech: 'Scikit-learn', color: 'text-orange-500 bg-orange-500/10 border-orange-500/20' },
+                    { tech: 'MATLAB', color: 'text-orange-500 bg-orange-500/10 border-orange-500/20' },
+                    { tech: 'SQL', color: 'text-purple-500 bg-purple-500/10 border-purple-500/20' },
+                    { tech: 'InfluxDB', color: 'text-cyan-500 bg-cyan-500/10 border-cyan-500/20' },
+                    { tech: 'Grafana', color: 'text-amber-500 bg-amber-500/10 border-amber-500/20' },
+                    { tech: 'AWS IoT', color: 'text-yellow-500 bg-yellow-500/10 border-yellow-500/20' },
+                    { tech: 'Docker', color: 'text-sky-500 bg-sky-500/10 border-sky-500/20' },
+                    { tech: 'Git', color: 'text-red-500 bg-red-500/10 border-red-500/20' },
+                    { tech: 'LabVIEW', color: 'text-amber-600 bg-amber-600/10 border-amber-600/20' }
                   ].map((item) => (
-                    <span key={item.tech} className={`px-3 py-1.5 border rounded-md text-sm font-mono ${item.color}`}>
+                    <span key={item.tech} className={`px-3 py-1.5 border rounded-md text-sm font-mono ${!isDark ? item.color.replace('500', '600') : item.color} transition-colors`}>
                       {item.tech}
                     </span>
                   ))}
@@ -352,6 +368,7 @@ export default function App() {
               number="03"
               title="Projets Professionnels"
               subtitle="Cas concrets d'optimisation et de détection d'anomalies en milieu industriel."
+              isDark={isDark}
             />
 
             <div className="grid md:grid-cols-2 gap-6">
@@ -395,7 +412,7 @@ export default function App() {
         {/* Projets Académiques */}
         <section className={`py-16 md:py-24 border-y ${isDark ? 'bg-zinc-900/30 border-white/5' : 'bg-zinc-50 border-zinc-200'}`}>
           <div className="max-w-7xl mx-auto px-6">
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-12 flex items-center gap-3">
+            <h2 className={`text-2xl md:text-3xl font-bold tracking-tight mb-12 flex items-center gap-3 ${isDark ? 'text-white' : 'text-zinc-900'}`}>
               <span className="w-8 h-8 rounded-full bg-blue-500/20 text-blue-500 flex items-center justify-center text-sm">🎓</span>
               Projets Académiques & Personnels
             </h2>
@@ -438,12 +455,13 @@ export default function App() {
         </section>
 
         {/* ⑤ Parcours */}
-        <section id="parcours" className="py-24 md:py-32 bg-zinc-900/30 border-y border-white/5">
+        <section id="parcours" className={`py-24 md:py-32 border-y transition-colors ${isDark ? 'bg-zinc-900/30 border-white/5' : 'bg-zinc-50 border-black/5'}`}>
           <div className="max-w-7xl mx-auto px-6">
             <SectionHeading
               number="04"
               title="Parcours"
               subtitle="Évolution professionnelle et académique."
+              isDark={isDark}
             />
 
             <div className="max-w-3xl relative">
@@ -493,9 +511,9 @@ export default function App() {
                         <img src={item.logo} alt={item.company} className="h-full w-auto object-contain invert-0" />
                       </div>
                     </div>
-                    <h3 className="text-xl font-bold mt-2 mb-1 text-zinc-100">{item.role}</h3>
-                    <div className="text-zinc-300 font-medium mb-3">{item.company}</div>
-                    <p className="text-zinc-400 text-sm leading-relaxed max-w-2xl">{item.desc}</p>
+                    <h3 className={`text-xl font-bold mt-2 mb-1 ${isDark ? 'text-zinc-100' : 'text-zinc-900'}`}>{item.role}</h3>
+                    <div className={`font-medium mb-3 ${isDark ? 'text-zinc-300' : 'text-zinc-700'}`}>{item.company}</div>
+                    <p className={`text-sm leading-relaxed max-w-2xl ${isDark ? 'text-zinc-400' : 'text-zinc-600'}`}>{item.desc}</p>
                   </motion.div>
                 ))}
               </div>
@@ -504,13 +522,13 @@ export default function App() {
         </section>
 
         {/* ⑥ Contact */}
-        <section id="contact" className="py-24 md:py-32">
+        <section id="contact" className={`py-24 md:py-32 transition-colors`}>
           <div className="max-w-7xl mx-auto px-6">
-            <div className="glass-card p-8 md:p-16 text-center max-w-3xl mx-auto relative overflow-hidden">
+            <div className={`glass-card p-8 md:p-16 text-center max-w-3xl mx-auto relative overflow-hidden transition-colors ${isDark ? 'bg-white/5 border-white/10' : 'bg-white/80 border-black/10 shadow-sm'}`}>
               <div className="absolute inset-0 bg-gradient-to-b from-emerald-500/5 to-transparent pointer-events-none" />
 
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-6">Prêt à optimiser vos systèmes ?</h2>
-              <p className="text-zinc-400 mb-10 max-w-xl mx-auto">
+              <h2 className={`text-3xl md:text-5xl font-bold tracking-tighter mb-6 ${isDark ? 'text-white' : 'text-zinc-900'}`}>Prêt à optimiser vos systèmes ?</h2>
+              <p className={`mb-10 max-w-xl mx-auto ${isDark ? 'text-zinc-400' : 'text-zinc-600'}`}>
                 Ouvert aux opportunités et collaborations sur des projets d'ingénierie complexes et data-driven.
               </p>
 
