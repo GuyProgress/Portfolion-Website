@@ -1,8 +1,9 @@
 import React, { useEffect, useState, Component, ErrorInfo, ReactNode } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'motion/react';
-import { Activity, Database, Train, ChevronDown, Mail, Github, Linkedin, ArrowRight, ExternalLink, Terminal, Link as LinkIcon, X, Sun, Moon, Cloud } from 'lucide-react';
+import { Activity, Database, Train, ChevronDown, Mail, Github, Linkedin, ArrowRight, ExternalLink, Terminal, Link as LinkIcon, X, Sun, Moon, Cloud, Download, Languages } from 'lucide-react';
 import { SiPython, SiCplusplus, SiPytorch, SiTensorflow, SiScikitlearn, SiSqlite, SiInfluxdb, SiGrafana, SiDocker, SiGit, SiLabview, SiKaggle } from 'react-icons/si';
 import { Link } from 'react-router-dom';
+import { t, Lang } from '../translations';
 
 import Aurora from '../components/Aurora';
 import SpotlightCard from '../components/SpotlightCard';
@@ -16,58 +17,58 @@ import ensamLogo from '../assets/logos/ensam.png';
 
 // --- Data ---
 const BASE = import.meta.env.BASE_URL;
-const PROJECTS = [
+const getProjects = (lang: Lang) => [
   {
-    title: "Conception Moteur V4",
+    title: t('projMoteurTitle', lang),
     category: "Ingenierie",
     image: `${BASE}projet moteur.webp`,
-    desc: "Conception et dimensionnement complet d'un moteur 4 cylindres en V. Modélisation CAO, calculs de résistance des matériaux et simulations thermiques.",
-    content: "Projet d'ingénierie mécanique portant sur la conception intégrale d'un moteur V4. Réalisation des plans détaillés, choix des matériaux, dimensionnement des composants critiques (vilebrequin, bielles, pistons) et validation par simulation numérique.",
+    desc: t('projMoteurDesc', lang),
+    content: t('projMoteurContent', lang),
     tags: ["Mécanique", "CAO", "Conception"],
     link: ""
   },
   {
-    title: "Soudage Robotisé WAAM — Robot ABB",
+    title: t('projWAAMTitle', lang),
     category: "Ingenierie",
     image: `${BASE}WAAM welding.jpg`,
-    desc: "Mise en œuvre du procédé WAAM (Wire Arc Additive Manufacturing) avec un robot ABB pour la fabrication additive métallique par arc électrique.",
-    content: "Programmation et paramétrage d'un robot ABB pour réaliser des dépôts de matière couche par couche via le procédé WAAM. Optimisation des paramètres de soudage (vitesse, intensité, trajectoire) pour garantir la qualité métallurgique des pièces produites.",
+    desc: t('projWAAMDesc', lang),
+    content: t('projWAAMContent', lang),
     tags: ["Robotique", "WAAM", "Fabrication Additive"],
     link: ""
   },
   {
-    title: "Robot Autonome — Réseau de Neurones",
+    title: t('projRobotTitle', lang),
     category: "IA",
     image: `${BASE}robot autonome.png`,
-    desc: "Conception et programmation d'un robot autonome piloté par un réseau de neurones pour la navigation et l'évitement d'obstacles.",
-    content: "Développement d'un robot autonome intégrant un réseau de neurones pour le contrôle en temps réel. Entraînement du modèle sur des données de capteurs pour permettre une navigation autonome et un évitement d'obstacles intelligent.",
+    desc: t('projRobotDesc', lang),
+    content: t('projRobotContent', lang),
     tags: ["IA", "Robotique", "Deep Learning"],
     link: "https://github.com/GuyProgress/Neural-Net-for-autonomous-robot-control"
   },
   {
-    title: "Maintenance Prédictive Ferroviaire",
+    title: t('projTrainsTitle', lang),
     category: "IA",
     image: `${BASE}trains.jpg`,
-    desc: "Développement de modèles de maintenance prédictive pour anticiper les défaillances sur le matériel roulant ferroviaire.",
-    content: "Analyse de données capteurs issues de trains en service. Implémentation d'algorithmes de machine learning (Random Forest, LSTM) pour prédire les pannes et optimiser les plannings de maintenance, réduisant les temps d'arrêt non planifiés.",
+    desc: t('projTrainsDesc', lang),
+    content: t('projTrainsContent', lang),
     tags: ["Machine Learning", "Ferroviaire", "Python"],
     link: ""
   },
   {
-    title: "Détection d'Anomalies Moteurs — Dataset NASA",
+    title: t('projNASATitle', lang),
     category: "IA",
     image: `${BASE}anomaly detection.webp`,
-    desc: "Détection d'anomalies sur des moteurs à partir du dataset C-MAPSS de la NASA. Modélisation de la durée de vie résiduelle (RUL).",
-    content: "Utilisation du dataset NASA C-MAPSS pour développer des modèles de pronostic de défaillance moteur. Implémentation de techniques de détection d'anomalies (Isolation Forest, Autoencoders) et estimation de la durée de vie résiduelle (Remaining Useful Life).",
+    desc: t('projNASADesc', lang),
+    content: t('projNASAContent', lang),
     tags: ["Anomaly Detection", "NASA", "Python"],
     link: ""
   },
   {
-    title: "CNN — Détection de Défauts Industriels",
+    title: t('projCNNTitle', lang),
     category: "IA",
     image: `${BASE}cnn.png`,
-    desc: "Réseau de neurones convolutif (CNN) pour la détection automatique de défauts sur des pièces industrielles par vision par ordinateur.",
-    content: "Entraînement d'un modèle CNN (architecture ResNet/VGG) pour classifier et localiser les défauts de surface sur des pièces manufacturées. Application de techniques de data augmentation et de transfer learning pour maximiser la précision de détection.",
+    desc: t('projCNNDesc', lang),
+    content: t('projCNNContent', lang),
     tags: ["Computer Vision", "CNN", "Deep Learning"],
     link: ""
   }
@@ -188,7 +189,8 @@ class ErrorBoundary extends Component<{children: ReactNode}, {hasError: boolean,
 
 // --- Main App ---
 
-export default function HomePage({ isDark, toggleTheme }: { isDark: boolean, toggleTheme: () => void }) {
+export default function HomePage({ isDark, toggleTheme, lang, toggleLang }: { isDark: boolean, toggleTheme: () => void, lang: Lang, toggleLang: () => void }) {
+  const PROJECTS = getProjects(lang);
   const [selectedProject, setSelectedProject] = useState<typeof PROJECTS[0] | null>(null);
   const { scrollYProgress } = useScroll();
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
@@ -218,29 +220,29 @@ export default function HomePage({ isDark, toggleTheme }: { isDark: boolean, tog
           logoText="Arts et métiers engineer"
           items={[
             {
-              label: "Manifeste & Parcours",
+              label: t('navManifeste', lang),
               bgColor: isDark ? "#022c22" : "#f1f5f9",
               textColor: isDark ? "#fff" : "#0f172a",
               links: [
-                { label: "Manifeste", ariaLabel: "Aller au Manifeste", href: "#manifeste" },
-                { label: "Parcours", ariaLabel: "Aller au Parcours", href: "#parcours" }
+                { label: t('navManifest', lang), ariaLabel: t('navManifest', lang), href: "#manifeste" },
+                { label: t('navParcours', lang), ariaLabel: t('navParcours', lang), href: "#parcours" }
               ]
             },
             {
-              label: "Expertise & Projets",
+              label: t('navExpertise', lang),
               bgColor: isDark ? "#064e3b" : "#e2e8f0",
               textColor: isDark ? "#fff" : "#0f172a",
               links: [
-                { label: "Expertise Technique", ariaLabel: "Voir l'expertise technique", href: "#expertise" },
-                { label: "Projets Professionnels", ariaLabel: "Voir les projets pro", href: "#projets" }
+                { label: t('navExpertiseTech', lang), ariaLabel: t('navExpertiseTech', lang), href: "#expertise" },
+                { label: t('navProjectsPro', lang), ariaLabel: t('navProjectsPro', lang), href: "#projets" }
               ]
             },
             {
-              label: "Contact & Paramètres",
+              label: t('navContact', lang),
               bgColor: isDark ? "#065f46" : "#cbd5e1",
               textColor: isDark ? "#fff" : "#0f172a",
               links: [
-                { label: "Me contacter", ariaLabel: "Email us", href: "#contact" },
+                { label: t('navContactMe', lang), ariaLabel: t('navContactMe', lang), href: "#contact" },
                 { label: "GitHub", ariaLabel: "GitHub Profile", href: "https://github.com/GuyProgress" },
                 { label: "LinkedIn", ariaLabel: "LinkedIn Profile", href: "https://www.linkedin.com/in/othmane-el-houdaigui-887909212/" },
                 { label: "Kaggle", ariaLabel: "Kaggle Profile", href: "https://www.kaggle.com/othmaneehd" },
@@ -263,8 +265,18 @@ export default function HomePage({ isDark, toggleTheme }: { isDark: boolean, tog
             `}
             aria-label="Toggle view"
           >
-            Créations ✨
+            {t('creativeLink', lang)}
           </Link>
+          <button
+            onClick={toggleLang}
+            className={`px-3 py-2 rounded-full transition-colors backdrop-blur-md font-bold text-xs flex items-center gap-1.5
+              ${isDark ? 'bg-white/10 hover:bg-white/20 text-zinc-200 border border-white/10' : 'bg-black/5 hover:bg-black/10 text-zinc-700 border border-black/10 shadow-sm'}
+            `}
+            aria-label="Toggle language"
+          >
+            <Languages size={14} />
+            {lang === 'fr' ? 'EN' : 'FR'}
+          </button>
           <button
             onClick={toggleTheme}
             className={`p-2 rounded-full transition-colors backdrop-blur-md
@@ -299,13 +311,13 @@ export default function HomePage({ isDark, toggleTheme }: { isDark: boolean, tog
                 className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono mb-8"
               >
                 <Activity size={14} />
-                <span>Systèmes en ligne & opérationnels</span>
+                <span>{t('heroStatus', lang)}</span>
               </motion.div>
 
               <AnimatedTitle text="Othmane EL HOUDAIGUI" />
 
               <div className={`text-xl md:text-2xl font-medium mb-12 h-20 ${isDark ? 'text-zinc-400 font-light' : 'text-zinc-800 font-medium'}`}>
-                <TypewriterText text="Ingénieur généraliste. systèmes IoT, IA et maintenance ferroviaire." delay={1.5} />
+                <TypewriterText text={t('heroSubtitle', lang)} delay={1.5} />
               </div>
 
               <motion.div
@@ -315,10 +327,10 @@ export default function HomePage({ isDark, toggleTheme }: { isDark: boolean, tog
                 className="flex flex-wrap items-center gap-4"
               >
                 <a href="#projets" className={`px-6 py-3 font-medium rounded-lg transition-colors flex items-center gap-2 ${isDark ? 'bg-zinc-50 text-zinc-950 hover:bg-zinc-200' : 'bg-black text-white hover:bg-zinc-800'}`}>
-                  Voir les réalisations <ArrowRight size={18} />
+                  {t('heroCtaProjects', lang)} <ArrowRight size={18} />
                 </a>
-                <a href="#contact" className={`px-6 py-3 font-medium rounded-lg transition-colors border ${isDark ? 'bg-white/5 border-white/10 hover:bg-white/10' : 'bg-black/5 border-black/10 hover:bg-black/10 text-black'}`}>
-                  Me contacter
+                <a href={`${BASE}CV_Othmane_EL_HOUDAIGUI.pdf`} download className={`px-6 py-3 font-medium rounded-lg transition-colors border flex items-center gap-2 ${isDark ? 'bg-white/5 border-white/10 hover:bg-white/10' : 'bg-black/5 border-black/10 hover:bg-black/10 text-black'}`}>
+                  <Download size={18} /> {t('heroCtaCV', lang)}
                 </a>
               </motion.div>
             </div>
@@ -338,8 +350,8 @@ export default function HomePage({ isDark, toggleTheme }: { isDark: boolean, tog
           <div className="max-w-7xl mx-auto px-6">
             <SectionHeading
               number="01"
-              title="Manifeste"
-              subtitle="Une approche systémique où la donnée rencontre la mécanique lourde."
+              title={t('manifesteTitle', lang)}
+              subtitle={t('manifesteSubtitle', lang)}
               isDark={isDark}
             />
 
@@ -347,18 +359,18 @@ export default function HomePage({ isDark, toggleTheme }: { isDark: boolean, tog
               {[
                 {
                   icon: <Terminal className="text-blue-400" size={24} />,
-                  title: "Ingénierie Système",
-                  desc: "Conception et intégration de solutions complexes. De l'architecture matérielle à la logique de contrôle."
+                  title: t('pillar1Title', lang),
+                  desc: t('pillar1Desc', lang)
                 },
                 {
                   icon: <Database className="text-emerald-400" size={24} />,
-                  title: "Data & Algorithmes",
-                  desc: "Traitement du signal, machine learning et analyse vibratoire pour anticier les défaillances avant qu'elles ne surviennent."
+                  title: t('pillar2Title', lang),
+                  desc: t('pillar2Desc', lang)
                 },
                 {
                   icon: <Train className="text-orange-400" size={24} />,
-                  title: "Infrastructure Ferroviaire",
-                  desc: "Expertise métier appliquée au matériel roulant et aux voies. Sécurité, fiabilité et disponibilité maximales."
+                  title: t('pillar3Title', lang),
+                  desc: t('pillar3Desc', lang)
                 }
               ].map((pillar, i) => (
                 <motion.div
@@ -385,8 +397,8 @@ export default function HomePage({ isDark, toggleTheme }: { isDark: boolean, tog
           <div className="max-w-7xl mx-auto px-6">
             <SectionHeading
               number="02"
-              title="Engineering Stack"
-              subtitle="Domaines d'expertise, tech stack et méthodologies de l'industrie 4.0 et de l'ingénierie système."
+              title={t('expertiseTitle', lang)}
+              subtitle={t('expertiseSubtitle', lang)}
               isDark={isDark}
             />
 
@@ -397,18 +409,18 @@ export default function HomePage({ isDark, toggleTheme }: { isDark: boolean, tog
                   <Activity size={120} className={isDark ? "text-white" : "text-emerald-500"} />
                 </div>
                 <h3 className={`text-lg font-semibold mb-6 flex items-center gap-2 ${isDark ? 'text-white' : 'text-zinc-900'}`}>
-                  <Activity size={18} className="text-emerald-400" /> Profil Ingénieur
+                  <Activity size={18} className="text-emerald-400" /> {t('profileTitle', lang)}
                 </h3>
                 <div className="flex flex-wrap gap-2 relative z-10">
                   {[
-                    { tech: 'Analyse Vibratoire', color: 'text-emerald-500 bg-emerald-500/10 border-emerald-500/20' },
-                    { tech: 'Traitement du Signal', color: 'text-emerald-500 bg-emerald-500/10 border-emerald-500/20' },
-                    { tech: 'Ingénierie Système', color: 'text-blue-500 bg-blue-500/10 border-blue-500/20' },
-                    { tech: 'Mécatronique', color: 'text-blue-500 bg-blue-500/10 border-blue-500/20' },
-                    { tech: 'Mécanique & CAO', color: 'text-orange-500 bg-orange-500/10 border-orange-500/20' },
-                    { tech: 'Architecture Ferroviaire', color: 'text-purple-500 bg-purple-500/10 border-purple-500/20' },
-                    { tech: 'IoT & Edge', color: 'text-cyan-500 bg-cyan-500/10 border-cyan-500/20' },
-                    { tech: 'Automatique / PID', color: 'text-yellow-500 bg-yellow-500/10 border-yellow-500/20' }
+                    { tech: t('tagVibration', lang), color: 'text-emerald-500 bg-emerald-500/10 border-emerald-500/20' },
+                    { tech: t('tagSignal', lang), color: 'text-emerald-500 bg-emerald-500/10 border-emerald-500/20' },
+                    { tech: t('tagSysEng', lang), color: 'text-blue-500 bg-blue-500/10 border-blue-500/20' },
+                    { tech: t('tagMecatronics', lang), color: 'text-blue-500 bg-blue-500/10 border-blue-500/20' },
+                    { tech: t('tagCAD', lang), color: 'text-orange-500 bg-orange-500/10 border-orange-500/20' },
+                    { tech: t('tagRailway', lang), color: 'text-purple-500 bg-purple-500/10 border-purple-500/20' },
+                    { tech: t('tagIoT', lang), color: 'text-cyan-500 bg-cyan-500/10 border-cyan-500/20' },
+                    { tech: t('tagPID', lang), color: 'text-yellow-500 bg-yellow-500/10 border-yellow-500/20' }
                   ].map((item) => (
                     <span key={item.tech} className={`px-3 py-1.5 border rounded-md text-sm font-mono ${!isDark ? item.color.replace('500', '600') : item.color} transition-colors`}>
                       {item.tech}
@@ -423,7 +435,7 @@ export default function HomePage({ isDark, toggleTheme }: { isDark: boolean, tog
                   <Terminal size={120} className={isDark ? "text-white" : "text-blue-500"} />
                 </div>
                 <h3 className={`text-lg font-semibold mb-6 flex items-center gap-2 ${isDark ? 'text-white' : 'text-zinc-900'}`}>
-                  <Terminal size={18} className="text-blue-400" /> Stack Technologique
+                  <Terminal size={18} className="text-blue-400" /> {t('stackTitle', lang)}
                 </h3>
                 
                 <div className="relative h-40 w-full mt-8 flex flex-col justify-center gap-6">
@@ -452,8 +464,8 @@ export default function HomePage({ isDark, toggleTheme }: { isDark: boolean, tog
           <div className="max-w-7xl mx-auto px-6">
             <SectionHeading
               number="03"
-              title="Projets d'Ingénierie"
-              subtitle="Conception mécanique, robotique et fabrication avancée."
+              title={t('projectsEngTitle', lang)}
+              subtitle={t('projectsEngSubtitle', lang)}
               isDark={isDark}
             />
 
@@ -500,7 +512,7 @@ export default function HomePage({ isDark, toggleTheme }: { isDark: boolean, tog
           <div className="max-w-7xl mx-auto px-6">
             <h2 className={`text-2xl md:text-3xl font-bold tracking-tight mb-12 flex items-center gap-3 ${isDark ? 'text-white' : 'text-zinc-900'}`}>
               <span className="w-8 h-8 rounded-full bg-blue-500/20 text-blue-500 flex items-center justify-center text-sm">🤖</span>
-              Projets IA & Machine Learning
+              {t('projectsIATitle', lang)}
             </h2>
 
             <div className="grid md:grid-cols-2 gap-6">
@@ -545,8 +557,8 @@ export default function HomePage({ isDark, toggleTheme }: { isDark: boolean, tog
           <div className="max-w-7xl mx-auto px-6">
             <SectionHeading
               number="04"
-              title="Parcours"
-              subtitle="Évolution professionnelle et académique."
+              title={t('parcoursTitle', lang)}
+              subtitle={t('parcoursSubtitle', lang)}
               isDark={isDark}
             />
 
@@ -557,24 +569,24 @@ export default function HomePage({ isDark, toggleTheme }: { isDark: boolean, tog
               <div className="space-y-12">
                 {[
                   {
-                    year: "Sept. 2025 - Août 2026",
-                    role: "Alternant Ingénieur IA — Maintenance Prédictive",
-                    company: "CAF — Construcciones y Auxiliar de Ferrocarriles (Reichshoffen, France)",
-                    desc: "Développement d'un assistant de diagnostic IA. Implémentation d'algorithmes de détection d'anomalies non supervisée (Isolation Forest, Autoencoders/VAE) sur données capteurs. Mise en place d'un pipeline de données (ingestion, normalisation, calcul d'indices de santé).",
+                    year: t('exp1Year', lang),
+                    role: t('exp1Role', lang),
+                    company: t('exp1Company', lang),
+                    desc: t('exp1Desc', lang),
                     logo: cafLogo
                   },
                   {
-                    year: "Juil. 2024 (1 mois)",
-                    role: "Stagiaire Maintenance Mécanique",
-                    company: "Groupe RATP — Centre Bus (Paris, France)",
-                    desc: "Réalisation de tâches de maintenance corrective et préventive sur les moteurs et installations. Contribution au contrôle des stocks et mise à jour de la base de données de l'inventaire.",
+                    year: t('exp2Year', lang),
+                    role: t('exp2Role', lang),
+                    company: t('exp2Company', lang),
+                    desc: t('exp2Desc', lang),
                     logo: ratpLogo
                   },
                   {
-                    year: "2023 - 2026",
-                    role: "Diplôme d'Ingénieur Généraliste",
-                    company: "Arts et Métiers Sciences et Technologies",
-                    desc: "Spécialisation en Mécatronique et Systèmes Complexes. Formation d'ingénieur généraliste avec un fort accent sur l'innovation et l'industrie.",
+                    year: t('exp3Year', lang),
+                    role: t('exp3Role', lang),
+                    company: t('exp3Company', lang),
+                    desc: t('exp3Desc', lang),
                     logo: ensamLogo
                   }
                 ].map((item, i) => (
@@ -617,16 +629,16 @@ export default function HomePage({ isDark, toggleTheme }: { isDark: boolean, tog
                 {/* Left Side: Text Details */}
                 <div className="flex flex-col h-full">
                   <div className="mb-2">
-                    <span className="text-emerald-500 text-sm font-medium tracking-wide">Let's talk</span>
+                    <span className="text-emerald-500 text-sm font-medium tracking-wide">{t('contactLetsTalk', lang)}</span>
                   </div>
                   <h2 className={`text-5xl font-bold tracking-tight mb-8 ${isDark ? 'text-white' : 'text-black'}`}>
-                    Contact
+                    {t('contactTitle', lang)}
                   </h2>
                   <p className={`text-lg font-medium mb-6 max-w-md ${isDark ? 'text-zinc-400' : 'text-zinc-800'}`}>
-                    Have a question or a project in mind? Feel free to reach out.
+                    {t('contactDesc', lang)}
                   </p>
                   <p className={`text-lg font-medium mb-12 ${isDark ? 'text-zinc-400' : 'text-zinc-800'}`}>
-                    Location: <span className={isDark ? 'text-zinc-300' : 'text-black font-bold'}>Strasbourg, France</span>
+                    {t('contactLocation', lang)} <span className={isDark ? 'text-zinc-300' : 'text-black font-bold'}>{t('contactCity', lang)}</span>
                   </p>
 
                   {/* Social Links Formatted Left-Aligned */}
@@ -652,15 +664,11 @@ export default function HomePage({ isDark, toggleTheme }: { isDark: boolean, tog
                   method="POST" 
                   className="space-y-4"
                 >
-                  {/* Optional: Configuration for formsubmit to prevent captcha and redirect, disable if you want them */}
-                  {/* <input type="hidden" name="_captcha" value="false" /> */}
-                  {/* <input type="hidden" name="_next" value="https://votre-site.com/thanks" /> */}
-
                   <div>
                     <input 
                       type="text" 
                       name="name" 
-                      placeholder="Name" 
+                      placeholder={t('contactName', lang)} 
                       required 
                       className={`w-full p-4 rounded-lg outline-none transition-colors border ${isDark ? 'bg-zinc-950/50 border-white/10 text-zinc-100 placeholder-zinc-500 hover:border-white/20 focus:border-emerald-500' : 'bg-zinc-50 border-black/10 text-zinc-900 placeholder-zinc-400 hover:border-black/20 focus:border-emerald-500'}`}
                     />
@@ -669,7 +677,7 @@ export default function HomePage({ isDark, toggleTheme }: { isDark: boolean, tog
                     <input 
                       type="email" 
                       name="email" 
-                      placeholder="Email" 
+                      placeholder={t('contactEmail', lang)} 
                       required 
                       className={`w-full p-4 rounded-lg outline-none transition-colors border ${isDark ? 'bg-zinc-950/50 border-white/10 text-zinc-100 placeholder-zinc-500 hover:border-white/20 focus:border-emerald-500' : 'bg-zinc-50 border-black/10 text-zinc-900 placeholder-zinc-400 hover:border-black/20 focus:border-emerald-500'}`}
                     />
@@ -677,7 +685,7 @@ export default function HomePage({ isDark, toggleTheme }: { isDark: boolean, tog
                   <div>
                     <textarea 
                       name="message" 
-                      placeholder="Message" 
+                      placeholder={t('contactMessage', lang)} 
                       rows={6}
                       required
                       className={`w-full p-4 rounded-lg outline-none transition-colors border resize-none ${isDark ? 'bg-zinc-950/50 border-white/10 text-zinc-100 placeholder-zinc-500 hover:border-white/20 focus:border-emerald-500' : 'bg-zinc-50 border-black/10 text-zinc-900 placeholder-zinc-400 hover:border-black/20 focus:border-emerald-500'}`}
@@ -687,7 +695,7 @@ export default function HomePage({ isDark, toggleTheme }: { isDark: boolean, tog
                     type="submit" 
                     className={`w-full py-4 mt-2 font-medium rounded-lg transition-colors ${isDark ? 'bg-white/5 border border-white/10 text-white hover:bg-white/10' : 'bg-zinc-900 text-white hover:bg-zinc-800'}`}
                   >
-                    Submit
+                    {t('contactSubmit', lang)}
                   </button>
                 </form>
               </div>
@@ -778,7 +786,7 @@ export default function HomePage({ isDark, toggleTheme }: { isDark: boolean, tog
       </AnimatePresence>
 
       <footer className="border-t border-white/5 py-8 text-center text-sm text-zinc-600 font-mono">
-        <p>© {new Date().getFullYear()} Othmane EL HOUDAIGUI. Construit avec précision.</p>
+        <p>© {new Date().getFullYear()} Othmane EL HOUDAIGUI. {t('footer', lang)}</p>
       </footer>
 
       <Chatbot isDark={isDark} />
