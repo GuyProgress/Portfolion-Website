@@ -9,9 +9,9 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
-  --color-electric-blue: #3b82f6;
-  --color-neon-green: #10b981;
-  --color-industrial-orange: #f97316;
+  --color-am-purple: #80276C;
+  --color-am-purple-light: #a04d8a;
+  --color-am-orange: #E99229;
 }
 
 @layer utilities {
@@ -20,15 +20,15 @@
   }
 
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-zinc-100 to-zinc-500;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-zinc-100 to-zinc-400;
   }
 }
 
 body {
   background-color: #09090b;
   background-image: 
-    radial-gradient(circle at 15% 50%, rgba(16, 185, 129, 0.04), transparent 25%),
-    radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.04), transparent 25%);
+    radial-gradient(circle at 15% 50%, rgba(128, 39, 108, 0.04), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(233, 146, 41, 0.04), transparent 25%);
 }
 
 :root {

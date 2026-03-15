@@ -119,7 +119,7 @@ export default function Chatbot({ isDark = true }: { isDark?: boolean }) {
         onClick={() => setIsOpen(true)}
         className={`fixed bottom-6 right-6 z-50 p-4 rounded-full shadow-2xl transition-all transform hover:scale-110 
           ${isOpen ? 'scale-0 opacity-0 pointer-events-none' : 'scale-100 opacity-100'} 
-          ${isDark ? 'bg-emerald-500 text-zinc-950 hover:bg-emerald-400' : 'bg-emerald-600 text-white hover:bg-emerald-500'}
+          ${isDark ? 'bg-[#80276C] text-white hover:bg-[#a04d8a]' : 'bg-[#80276C] text-white hover:bg-[#6b2059]'}
         `}
         aria-label="Ouvrir le chat assistant"
       >
@@ -136,12 +136,12 @@ export default function Chatbot({ isDark = true }: { isDark?: boolean }) {
         {/* Header */}
         <div className={`p-4 flex items-center justify-between border-b ${isDark ? 'border-white/10 bg-zinc-950/50' : 'border-black/5 bg-zinc-50'}`}>
           <div className="flex items-center gap-3">
-             <div className="w-10 h-10 rounded-full flex items-center justify-center bg-gradient-to-br from-emerald-400 to-blue-500 text-white">
+             <div className="w-10 h-10 rounded-full flex items-center justify-center bg-gradient-to-br from-[#80276C] to-[#E99229] text-white">
                 <Bot size={20} />
              </div>
              <div>
                 <h3 className={`font-semibold text-lg leading-tight ${isDark ? 'text-white' : 'text-zinc-900'}`}>OthmaneGPT</h3>
-                <p className={`text-xs ${isDark ? 'text-emerald-400' : 'text-emerald-600'}`}>Assistant Personnel IA</p>
+                <p className={`text-xs ${isDark ? 'text-[#E99229]' : 'text-[#80276C]'}`}>Assistant Personnel IA</p>
              </div>
           </div>
           <button 
@@ -160,7 +160,7 @@ export default function Chatbot({ isDark = true }: { isDark?: boolean }) {
                   
                   {/* Avatar */}
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 
-                     ${msg.role === 'model' ? (isDark ? 'bg-emerald-500/20 text-emerald-400' : 'bg-emerald-100 text-emerald-600') 
+                     ${msg.role === 'model' ? (isDark ? 'bg-[#80276C]/20 text-[#d4a5c8]' : 'bg-[#80276C]/10 text-[#80276C]') 
                      : (isDark ? 'bg-zinc-800 text-zinc-300' : 'bg-zinc-200 text-zinc-600')}
                   `}>
                      {msg.role === 'model' ? <Bot size={16} /> : <User size={16} />}
@@ -169,7 +169,7 @@ export default function Chatbot({ isDark = true }: { isDark?: boolean }) {
                   {/* Bubble */}
                   <div className={`px-4 py-3 rounded-2xl text-sm leading-relaxed whitespace-pre-wrap
                      ${msg.role === 'user' 
-                        ? (isDark ? 'bg-emerald-600 text-white' : 'bg-emerald-500 text-white') 
+                        ? (isDark ? 'bg-[#80276C] text-white' : 'bg-[#80276C] text-white') 
                         : (isDark ? 'bg-zinc-800 text-zinc-200 border border-white/5' : 'bg-white text-zinc-800 border border-black/5 shadow-sm')
                      }
                   `}>
@@ -182,11 +182,11 @@ export default function Chatbot({ isDark = true }: { isDark?: boolean }) {
           {isLoading && (
             <div className="flex justify-start">
                <div className="flex gap-3 max-w-[85%] flex-row">
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${isDark ? 'bg-emerald-500/20 text-emerald-400' : 'bg-emerald-100 text-emerald-600'}`}>
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${isDark ? 'bg-[#80276C]/20 text-[#d4a5c8]' : 'bg-[#80276C]/10 text-[#80276C]'}`}>
                      <Bot size={16} />
                   </div>
                   <div className={`px-4 py-3 rounded-2xl flex items-center gap-2 ${isDark ? 'bg-zinc-800 border border-white/5' : 'bg-white border border-black/5 shadow-sm'}`}>
-                    <Loader2 size={16} className="animate-spin text-emerald-500" />
+                    <Loader2 size={16} className="animate-spin text-[#80276C]" />
                     <span className={`text-sm ${isDark ? 'text-zinc-400' : 'text-zinc-500'}`}>Génération...</span>
                   </div>
                </div>
@@ -204,14 +204,14 @@ export default function Chatbot({ isDark = true }: { isDark?: boolean }) {
               onChange={(e) => setInputValue(e.target.value)}
               placeholder="Chattez avec OthmaneGPT..." 
               className={`flex-1 px-4 py-3 rounded-full outline-none border transition-colors text-sm
-                ${isDark ? 'bg-zinc-900 border-white/10 text-white placeholder-zinc-500 focus:border-emerald-500' : 'bg-zinc-100 border-transparent text-zinc-900 placeholder-zinc-500 focus:border-emerald-500 focus:bg-white'}
+                ${isDark ? 'bg-zinc-900 border-white/10 text-white placeholder-zinc-500 focus:border-[#80276C]' : 'bg-zinc-100 border-transparent text-zinc-900 placeholder-zinc-500 focus:border-[#80276C] focus:bg-white'}
               `}
             />
             <button 
               type="submit"
               disabled={!inputValue.trim() || isLoading}
               className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0 transition-colors disabled:opacity-50
-                ${isDark ? 'bg-emerald-500 text-zinc-950 hover:bg-emerald-400' : 'bg-emerald-600 text-white hover:bg-emerald-500'}
+                ${isDark ? 'bg-[#80276C] text-white hover:bg-[#a04d8a]' : 'bg-[#80276C] text-white hover:bg-[#6b2059]'}
               `}
             >
               <Send size={18} className="translate-x-[1px]" />

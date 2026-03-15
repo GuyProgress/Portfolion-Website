@@ -124,7 +124,7 @@ const TypewriterText = ({ text, delay = 0 }: { text: string; delay?: number }) =
       <motion.span
         animate={{ opacity: [1, 0] }}
         transition={{ repeat: Infinity, duration: 0.8 }}
-        className="inline-block w-2 h-5 bg-emerald-500 ml-1 align-middle"
+        className="inline-block w-2 h-5 bg-[#80276C] ml-1 align-middle"
       />
     </span>
   );
@@ -151,7 +151,7 @@ const AnimatedTitle = ({ text }: { text: string }) => {
 const SectionHeading = ({ title, subtitle, number, isDark = true }: { title: string; subtitle: string; number: string; isDark?: boolean }) => (
   <div className="mb-16 md:mb-24">
     <div className="flex items-center gap-4 mb-4">
-      <span className="font-mono text-emerald-500 text-sm">{number}</span>
+      <span className="font-mono text-[#E99229] text-sm">{number}</span>
       <div className={`h-px flex-1 ${isDark ? 'bg-white/10' : 'bg-black/10'}`} />
     </div>
     <h2 className={`text-3xl md:text-4xl font-bold tracking-tight mb-4 ${isDark ? 'text-white' : 'text-black'}`}>{title}</h2>
@@ -196,7 +196,7 @@ export default function HomePage({ isDark, toggleTheme, lang, toggleLang }: { is
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
 
   return (
-    <div className={`min-h-screen font-sans selection:bg-emerald-500/30 overflow-hidden transition-colors duration-500
+    <div className={`min-h-screen font-sans selection:bg-[#80276C]/30 overflow-hidden transition-colors duration-500
       ${isDark ? 'bg-zinc-950 text-zinc-50' : 'bg-zinc-50 text-zinc-900'}
     `}>
       {/* Background Aurora */}
@@ -204,8 +204,8 @@ export default function HomePage({ isDark, toggleTheme, lang, toggleLang }: { is
         <Aurora
           colorStops={
             isDark 
-              ? ['#10b981', '#047857', '#064e3b'] // Dark mode: Emerald gradients
-              : ['#a7f3d0', '#6ee7b7', '#34d399'] // Light mode: Lighter emerald gradients
+              ? ['#80276C', '#a04d8a', '#4a1540'] // Dark mode: AM Purple gradients
+              : ['#d4a5c8', '#c48ab8', '#a04d8a'] // Light mode: Lighter purple gradients
           }
           blend={0.5}
           amplitude={1.2}
@@ -221,7 +221,7 @@ export default function HomePage({ isDark, toggleTheme, lang, toggleLang }: { is
           items={[
             {
               label: t('navManifeste', lang),
-              bgColor: isDark ? "#022c22" : "#f1f5f9",
+              bgColor: isDark ? "#2d1128" : "#f5f0f4",
               textColor: isDark ? "#fff" : "#0f172a",
               links: [
                 { label: t('navManifest', lang), ariaLabel: t('navManifest', lang), href: "#manifeste" },
@@ -230,7 +230,7 @@ export default function HomePage({ isDark, toggleTheme, lang, toggleLang }: { is
             },
             {
               label: t('navExpertise', lang),
-              bgColor: isDark ? "#064e3b" : "#e2e8f0",
+              bgColor: isDark ? "#4a1540" : "#ede2eb",
               textColor: isDark ? "#fff" : "#0f172a",
               links: [
                 { label: t('navExpertiseTech', lang), ariaLabel: t('navExpertiseTech', lang), href: "#expertise" },
@@ -239,7 +239,7 @@ export default function HomePage({ isDark, toggleTheme, lang, toggleLang }: { is
             },
             {
               label: t('navContact', lang),
-              bgColor: isDark ? "#065f46" : "#cbd5e1",
+              bgColor: isDark ? "#5a1d50" : "#e0d0de",
               textColor: isDark ? "#fff" : "#0f172a",
               links: [
                 { label: t('navContactMe', lang), ariaLabel: t('navContactMe', lang), href: "#contact" },
@@ -251,8 +251,8 @@ export default function HomePage({ isDark, toggleTheme, lang, toggleLang }: { is
           ]}
           baseColor={isDark ? "rgba(24, 24, 27, 0.8)" : "rgba(255, 255, 255, 0.8)"}
           menuColor={isDark ? "#fff" : "#000"}
-          buttonBgColor={isDark ? "#10b981" : "#10b981"}
-          buttonTextColor={isDark ? "#000" : "#fff"}
+          buttonBgColor={isDark ? "#80276C" : "#80276C"}
+          buttonTextColor={isDark ? "#fff" : "#fff"}
           ease="power3.out"
           className="w-full max-w-7xl backdrop-blur-xl"
         />
@@ -261,7 +261,7 @@ export default function HomePage({ isDark, toggleTheme, lang, toggleLang }: { is
           <Link
             to="/creative"
             className={`px-4 py-2 rounded-full transition-colors backdrop-blur-md opacity-90 font-medium
-              ${isDark ? 'bg-emerald-900/50 hover:bg-emerald-800/80 text-emerald-300 border border-emerald-500/30' : 'bg-emerald-100/50 hover:bg-emerald-200/80 text-emerald-800 border border-emerald-500/20 shadow-sm'}
+              ${isDark ? 'bg-[#80276C]/30 hover:bg-[#80276C]/50 text-[#d4a5c8] border border-[#80276C]/40' : 'bg-[#80276C]/10 hover:bg-[#80276C]/20 text-[#80276C] border border-[#80276C]/20 shadow-sm'}
             `}
             aria-label="Toggle view"
           >
@@ -280,7 +280,7 @@ export default function HomePage({ isDark, toggleTheme, lang, toggleLang }: { is
           <button
             onClick={toggleTheme}
             className={`p-2 rounded-full transition-colors backdrop-blur-md
-              ${isDark ? 'bg-white/10 hover:bg-white/20 text-emerald-400 hover:text-emerald-300 border border-white/10' : 'bg-black/5 hover:bg-black/10 text-emerald-600 hover:text-emerald-700 border border-black/10 shadow-sm'}
+              ${isDark ? 'bg-white/10 hover:bg-white/20 text-[#E99229] hover:text-[#f0b960] border border-white/10' : 'bg-black/5 hover:bg-black/10 text-[#80276C] hover:text-[#6b2059] border border-black/10 shadow-sm'}
             `}
             aria-label="Toggle theme"
           >
@@ -299,8 +299,8 @@ export default function HomePage({ isDark, toggleTheme, lang, toggleLang }: { is
           {/* ① Hero Section */}
         <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
           {/* Decorative background elements */}
-          <motion.div style={{ y }} className="absolute top-1/4 -right-1/4 w-[800px] h-[800px] bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none" />
-          <motion.div style={{ y: useTransform(scrollYProgress, [0, 1], ['0%', '-50%']) }} className="absolute bottom-1/4 -left-1/4 w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-[100px] pointer-events-none" />
+          <motion.div style={{ y }} className="absolute top-1/4 -right-1/4 w-[800px] h-[800px] bg-[#80276C]/10 rounded-full blur-[120px] pointer-events-none" />
+          <motion.div style={{ y: useTransform(scrollYProgress, [0, 1], ['0%', '-50%']) }} className="absolute bottom-1/4 -left-1/4 w-[600px] h-[600px] bg-[#E99229]/10 rounded-full blur-[100px] pointer-events-none" />
 
           <div className="max-w-7xl mx-auto px-6 w-full">
             <div className="max-w-4xl">
@@ -308,7 +308,7 @@ export default function HomePage({ isDark, toggleTheme, lang, toggleLang }: { is
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1 }}
-                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono mb-8"
+                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#80276C]/10 border border-[#80276C]/20 text-[#d4a5c8] text-xs font-mono mb-8"
               >
                 <Activity size={14} />
                 <span>{t('heroStatus', lang)}</span>
@@ -358,17 +358,17 @@ export default function HomePage({ isDark, toggleTheme, lang, toggleLang }: { is
             <div className="grid md:grid-cols-3 gap-6">
               {[
                 {
-                  icon: <Terminal className="text-blue-400" size={24} />,
+                  icon: <Terminal className="text-[#80276C]" size={24} />,
                   title: t('pillar1Title', lang),
                   desc: t('pillar1Desc', lang)
                 },
                 {
-                  icon: <Database className="text-emerald-400" size={24} />,
+                  icon: <Database className="text-[#E99229]" size={24} />,
                   title: t('pillar2Title', lang),
                   desc: t('pillar2Desc', lang)
                 },
                 {
-                  icon: <Train className="text-orange-400" size={24} />,
+                  icon: <Train className="text-[#d4a5c8]" size={24} />,
                   title: t('pillar3Title', lang),
                   desc: t('pillar3Desc', lang)
                 }
@@ -404,23 +404,23 @@ export default function HomePage({ isDark, toggleTheme, lang, toggleLang }: { is
 
             <div className="grid md:grid-cols-2 gap-6 md:gap-12">
               {/* Engineering Stack */}
-              <SpotlightCard className={`glass-card p-8 h-full relative overflow-hidden ${isDark ? 'bg-white/5 border-white/10' : 'bg-white/80 border-black/10 shadow-sm'}`} spotlightColor={isDark ? "rgba(16, 185, 129, 0.15)" : "rgba(16, 185, 129, 0.08)"}>
+              <SpotlightCard className={`glass-card p-8 h-full relative overflow-hidden ${isDark ? 'bg-white/5 border-white/10' : 'bg-white/80 border-black/10 shadow-sm'}`} spotlightColor={isDark ? "rgba(128, 39, 108, 0.15)" : "rgba(128, 39, 108, 0.08)"}>
                 <div className="absolute top-0 right-0 p-4 opacity-10">
-                  <Activity size={120} className={isDark ? "text-white" : "text-emerald-500"} />
+                  <Activity size={120} className={isDark ? "text-white" : "text-[#80276C]"} />
                 </div>
                 <h3 className={`text-lg font-semibold mb-6 flex items-center gap-2 ${isDark ? 'text-white' : 'text-zinc-900'}`}>
-                  <Activity size={18} className="text-emerald-400" /> {t('profileTitle', lang)}
+                  <Activity size={18} className="text-[#80276C]" /> {t('profileTitle', lang)}
                 </h3>
                 <div className="flex flex-wrap gap-2 relative z-10">
                   {[
-                    { tech: t('tagVibration', lang), color: 'text-emerald-500 bg-emerald-500/10 border-emerald-500/20' },
-                    { tech: t('tagSignal', lang), color: 'text-emerald-500 bg-emerald-500/10 border-emerald-500/20' },
-                    { tech: t('tagSysEng', lang), color: 'text-blue-500 bg-blue-500/10 border-blue-500/20' },
-                    { tech: t('tagMecatronics', lang), color: 'text-blue-500 bg-blue-500/10 border-blue-500/20' },
-                    { tech: t('tagCAD', lang), color: 'text-orange-500 bg-orange-500/10 border-orange-500/20' },
-                    { tech: t('tagRailway', lang), color: 'text-purple-500 bg-purple-500/10 border-purple-500/20' },
-                    { tech: t('tagIoT', lang), color: 'text-cyan-500 bg-cyan-500/10 border-cyan-500/20' },
-                    { tech: t('tagPID', lang), color: 'text-yellow-500 bg-yellow-500/10 border-yellow-500/20' }
+                    { tech: t('tagVibration', lang), color: 'text-[#80276C] bg-[#80276C]/10 border-[#80276C]/20' },
+                    { tech: t('tagSignal', lang), color: 'text-[#80276C] bg-[#80276C]/10 border-[#80276C]/20' },
+                    { tech: t('tagSysEng', lang), color: 'text-[#E99229] bg-[#E99229]/10 border-[#E99229]/20' },
+                    { tech: t('tagMecatronics', lang), color: 'text-[#E99229] bg-[#E99229]/10 border-[#E99229]/20' },
+                    { tech: t('tagCAD', lang), color: 'text-[#a04d8a] bg-[#a04d8a]/10 border-[#a04d8a]/20' },
+                    { tech: t('tagRailway', lang), color: 'text-[#d4a5c8] bg-[#d4a5c8]/10 border-[#d4a5c8]/20' },
+                    { tech: t('tagIoT', lang), color: 'text-[#f0b960] bg-[#f0b960]/10 border-[#f0b960]/20' },
+                    { tech: t('tagPID', lang), color: 'text-[#E99229] bg-[#E99229]/10 border-[#E99229]/20' }
                   ].map((item) => (
                     <span key={item.tech} className={`px-3 py-1.5 border rounded-md text-sm font-mono ${!isDark ? item.color.replace('500', '600') : item.color} transition-colors`}>
                       {item.tech}
@@ -430,12 +430,12 @@ export default function HomePage({ isDark, toggleTheme, lang, toggleLang }: { is
               </SpotlightCard>
 
               {/* Stack Technologique */}
-              <SpotlightCard className={`glass-card p-8 h-full relative overflow-hidden ${isDark ? 'bg-white/5 border-white/10' : 'bg-white/80 border-black/10 shadow-sm'}`} spotlightColor={isDark ? "rgba(59, 130, 246, 0.15)" : "rgba(59, 130, 246, 0.08)"}>
+              <SpotlightCard className={`glass-card p-8 h-full relative overflow-hidden ${isDark ? 'bg-white/5 border-white/10' : 'bg-white/80 border-black/10 shadow-sm'}`} spotlightColor={isDark ? "rgba(233, 146, 41, 0.15)" : "rgba(233, 146, 41, 0.08)"}>
                 <div className="absolute top-0 right-0 p-4 opacity-10">
-                  <Terminal size={120} className={isDark ? "text-white" : "text-blue-500"} />
+                  <Terminal size={120} className={isDark ? "text-white" : "text-[#E99229]"} />
                 </div>
                 <h3 className={`text-lg font-semibold mb-6 flex items-center gap-2 ${isDark ? 'text-white' : 'text-zinc-900'}`}>
-                  <Terminal size={18} className="text-blue-400" /> {t('stackTitle', lang)}
+                  <Terminal size={18} className="text-[#E99229]" /> {t('stackTitle', lang)}
                 </h3>
                 
                 <div className="relative h-40 w-full mt-8 flex flex-col justify-center gap-6">
@@ -479,7 +479,7 @@ export default function HomePage({ isDark, toggleTheme, lang, toggleLang }: { is
                   transition={{ delay: i * 0.1 }}
                   onClick={() => setSelectedProject(project)}
                   className={`group relative overflow-hidden transition-all cursor-pointer flex flex-col h-full rounded-2xl border
-                    ${isDark ? 'bg-zinc-900/50 hover:border-emerald-500/30 border-white/5' : 'bg-white hover:border-emerald-500/40 hover:shadow-lg border-zinc-200 shadow-sm'}
+                    ${isDark ? 'bg-zinc-900/50 hover:border-[#80276C]/30 border-white/5' : 'bg-white hover:border-[#80276C]/40 hover:shadow-lg border-zinc-200 shadow-sm'}
                   `}
                 >
                   {/* Image Type Notion */}
@@ -489,7 +489,7 @@ export default function HomePage({ isDark, toggleTheme, lang, toggleLang }: { is
                   </div>
 
                   <div className="p-6 flex flex-col flex-1">
-                    <h3 className={`text-xl font-bold transition-colors mb-3 ${isDark ? 'group-hover:text-emerald-400 text-white' : 'text-black group-hover:text-emerald-700'}`}>{project.title}</h3>
+                    <h3 className={`text-xl font-bold transition-colors mb-3 ${isDark ? 'group-hover:text-[#d4a5c8] text-white' : 'text-black group-hover:text-[#80276C]'}`}>{project.title}</h3>
                     <p className={`text-sm font-medium leading-relaxed flex-1 mb-6 ${isDark ? 'text-zinc-400' : 'text-zinc-800'}`}>{project.desc}</p>
                     <div className="flex flex-wrap gap-2 mt-auto">
                       {project.tags.map(tag => (
@@ -511,7 +511,7 @@ export default function HomePage({ isDark, toggleTheme, lang, toggleLang }: { is
         <section className={`py-16 md:py-24 border-y ${isDark ? 'bg-zinc-900/30 border-white/5' : 'bg-zinc-50 border-zinc-200'}`}>
           <div className="max-w-7xl mx-auto px-6">
             <h2 className={`text-2xl md:text-3xl font-bold tracking-tight mb-12 flex items-center gap-3 ${isDark ? 'text-white' : 'text-zinc-900'}`}>
-              <span className="w-8 h-8 rounded-full bg-blue-500/20 text-blue-500 flex items-center justify-center text-sm">🤖</span>
+              <span className="w-8 h-8 rounded-full bg-[#E99229]/20 text-[#E99229] flex items-center justify-center text-sm">🤖</span>
               {t('projectsIATitle', lang)}
             </h2>
 
@@ -525,7 +525,7 @@ export default function HomePage({ isDark, toggleTheme, lang, toggleLang }: { is
                   transition={{ delay: i * 0.1 }}
                   onClick={() => setSelectedProject(project)}
                   className={`group relative overflow-hidden transition-all cursor-pointer flex flex-col h-full rounded-2xl border
-                    ${isDark ? 'bg-zinc-950 hover:border-blue-500/30 border-white/5' : 'bg-white hover:border-blue-500/40 hover:shadow-lg border-zinc-200 shadow-sm'}
+                    ${isDark ? 'bg-zinc-950 hover:border-[#E99229]/30 border-white/5' : 'bg-white hover:border-[#E99229]/40 hover:shadow-lg border-zinc-200 shadow-sm'}
                   `}
                 >
                   <div className={`h-40 w-full shrink-0 overflow-hidden relative border-b ${isDark ? 'border-white/5' : 'border-zinc-100'}`}>
@@ -534,7 +534,7 @@ export default function HomePage({ isDark, toggleTheme, lang, toggleLang }: { is
                   </div>
 
                   <div className="p-6 flex flex-col flex-1">
-                    <h3 className={`text-xl font-bold transition-colors mb-3 ${isDark ? 'group-hover:text-blue-400 text-white' : 'text-black group-hover:text-blue-700'}`}>{project.title}</h3>
+                    <h3 className={`text-xl font-bold transition-colors mb-3 ${isDark ? 'group-hover:text-[#f0b960] text-white' : 'text-black group-hover:text-[#E99229]'}`}>{project.title}</h3>
                     <p className={`text-sm font-medium leading-relaxed flex-1 mb-6 ${isDark ? 'text-zinc-400' : 'text-zinc-800'}`}>{project.desc}</p>
                     <div className="flex flex-wrap gap-2 mt-auto">
                       {project.tags.map(tag => (
@@ -598,12 +598,12 @@ export default function HomePage({ isDark, toggleTheme, lang, toggleLang }: { is
                     className="relative pl-12"
                   >
                     {/* Dot */}
-                    <div className="absolute left-0 top-1.5 w-[30px] h-[30px] bg-zinc-950 border border-emerald-500/50 rounded-full flex items-center justify-center z-10">
-                      <div className="w-2 h-2 bg-emerald-400 rounded-full" />
+                    <div className="absolute left-0 top-1.5 w-[30px] h-[30px] bg-zinc-950 border border-[#80276C]/50 rounded-full flex items-center justify-center z-10">
+                      <div className="w-2 h-2 bg-[#80276C] rounded-full" />
                     </div>
 
                     <div className="flex flex-col sm:flex-row gap-3 sm:items-center mb-1">
-                      <div className="font-mono text-sm text-emerald-400">{item.year}</div>
+                      <div className="font-mono text-sm text-[#E99229]">{item.year}</div>
                       <div className="hidden sm:block w-px h-4 bg-white/20"></div>
                       <div className="flex items-center justify-center bg-white rounded-md px-2 py-1 h-8 w-fit shrink-0">
                         <img src={item.logo} alt={item.company} className="h-full w-auto object-contain invert-0" />
@@ -623,13 +623,13 @@ export default function HomePage({ isDark, toggleTheme, lang, toggleLang }: { is
         <section id="contact" className={`py-24 md:py-32 transition-colors`}>
           <div className="max-w-7xl mx-auto px-6">
             <div className={`glass-card p-8 md:p-16 relative overflow-hidden transition-colors ${isDark ? 'bg-white/5 border-white/10' : 'bg-white/80 border-black/10 shadow-sm'}`}>
-              <div className="absolute inset-0 bg-gradient-to-b from-emerald-500/5 to-transparent pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-b from-[#80276C]/5 to-transparent pointer-events-none" />
 
               <div className="grid md:grid-cols-2 gap-12 relative z-10 w-full h-full">
                 {/* Left Side: Text Details */}
                 <div className="flex flex-col h-full">
                   <div className="mb-2">
-                    <span className="text-emerald-500 text-sm font-medium tracking-wide">{t('contactLetsTalk', lang)}</span>
+                    <span className="text-[#E99229] text-sm font-medium tracking-wide">{t('contactLetsTalk', lang)}</span>
                   </div>
                   <h2 className={`text-5xl font-bold tracking-tight mb-8 ${isDark ? 'text-white' : 'text-black'}`}>
                     {t('contactTitle', lang)}
@@ -643,15 +643,15 @@ export default function HomePage({ isDark, toggleTheme, lang, toggleLang }: { is
 
                   {/* Social Links Formatted Left-Aligned */}
                   <div className="flex gap-4 mt-auto">
-                    <a href="https://github.com/GuyProgress" target="_blank" rel="noopener noreferrer" className={`p-4 rounded-xl transition-colors ${isDark ? 'bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-emerald-400' : 'bg-black/5 hover:bg-black/10 text-zinc-600 hover:text-emerald-600'}`}>
+                    <a href="https://github.com/GuyProgress" target="_blank" rel="noopener noreferrer" className={`p-4 rounded-xl transition-colors ${isDark ? 'bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-[#80276C]' : 'bg-black/5 hover:bg-black/10 text-zinc-600 hover:text-[#80276C]'}`}>
                       <Github size={24} />
                       <span className="sr-only">GitHub</span>
                     </a>
-                    <a href="https://www.linkedin.com/in/othmane-el-houdaigui-887909212/" target="_blank" rel="noopener noreferrer" className={`p-4 rounded-xl transition-colors ${isDark ? 'bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-blue-400' : 'bg-black/5 hover:bg-black/10 text-zinc-600 hover:text-blue-600'}`}>
+                    <a href="https://www.linkedin.com/in/othmane-el-houdaigui-887909212/" target="_blank" rel="noopener noreferrer" className={`p-4 rounded-xl transition-colors ${isDark ? 'bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-[#E99229]' : 'bg-black/5 hover:bg-black/10 text-zinc-600 hover:text-[#E99229]'}`}>
                       <Linkedin size={24} />
                       <span className="sr-only">LinkedIn</span>
                     </a>
-                    <a href="https://www.kaggle.com/othmaneehd" target="_blank" rel="noopener noreferrer" className={`p-4 rounded-xl transition-colors ${isDark ? 'bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-cyan-400' : 'bg-black/5 hover:bg-black/10 text-zinc-600 hover:text-cyan-600'}`}>
+                    <a href="https://www.kaggle.com/othmaneehd" target="_blank" rel="noopener noreferrer" className={`p-4 rounded-xl transition-colors ${isDark ? 'bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-[#d4a5c8]' : 'bg-black/5 hover:bg-black/10 text-zinc-600 hover:text-[#d4a5c8]'}`}>
                       <SiKaggle size={24} />
                       <span className="sr-only">Kaggle</span>
                     </a>
@@ -670,7 +670,7 @@ export default function HomePage({ isDark, toggleTheme, lang, toggleLang }: { is
                       name="name" 
                       placeholder={t('contactName', lang)} 
                       required 
-                      className={`w-full p-4 rounded-lg outline-none transition-colors border ${isDark ? 'bg-zinc-950/50 border-white/10 text-zinc-100 placeholder-zinc-500 hover:border-white/20 focus:border-emerald-500' : 'bg-zinc-50 border-black/10 text-zinc-900 placeholder-zinc-400 hover:border-black/20 focus:border-emerald-500'}`}
+                      className={`w-full p-4 rounded-lg outline-none transition-colors border ${isDark ? 'bg-zinc-950/50 border-white/10 text-zinc-100 placeholder-zinc-500 hover:border-white/20 focus:border-[#80276C]' : 'bg-zinc-50 border-black/10 text-zinc-900 placeholder-zinc-400 hover:border-black/20 focus:border-[#80276C]'}`}
                     />
                   </div>
                   <div>
@@ -679,7 +679,7 @@ export default function HomePage({ isDark, toggleTheme, lang, toggleLang }: { is
                       name="email" 
                       placeholder={t('contactEmail', lang)} 
                       required 
-                      className={`w-full p-4 rounded-lg outline-none transition-colors border ${isDark ? 'bg-zinc-950/50 border-white/10 text-zinc-100 placeholder-zinc-500 hover:border-white/20 focus:border-emerald-500' : 'bg-zinc-50 border-black/10 text-zinc-900 placeholder-zinc-400 hover:border-black/20 focus:border-emerald-500'}`}
+                      className={`w-full p-4 rounded-lg outline-none transition-colors border ${isDark ? 'bg-zinc-950/50 border-white/10 text-zinc-100 placeholder-zinc-500 hover:border-white/20 focus:border-[#80276C]' : 'bg-zinc-50 border-black/10 text-zinc-900 placeholder-zinc-400 hover:border-black/20 focus:border-[#80276C]'}`}
                     />
                   </div>
                   <div>
@@ -688,7 +688,7 @@ export default function HomePage({ isDark, toggleTheme, lang, toggleLang }: { is
                       placeholder={t('contactMessage', lang)} 
                       rows={6}
                       required
-                      className={`w-full p-4 rounded-lg outline-none transition-colors border resize-none ${isDark ? 'bg-zinc-950/50 border-white/10 text-zinc-100 placeholder-zinc-500 hover:border-white/20 focus:border-emerald-500' : 'bg-zinc-50 border-black/10 text-zinc-900 placeholder-zinc-400 hover:border-black/20 focus:border-emerald-500'}`}
+                      className={`w-full p-4 rounded-lg outline-none transition-colors border resize-none ${isDark ? 'bg-zinc-950/50 border-white/10 text-zinc-100 placeholder-zinc-500 hover:border-white/20 focus:border-[#80276C]' : 'bg-zinc-50 border-black/10 text-zinc-900 placeholder-zinc-400 hover:border-black/20 focus:border-[#80276C]'}`}
                     />
                   </div>
                   <button 
@@ -724,7 +724,7 @@ export default function HomePage({ isDark, toggleTheme, lang, toggleLang }: { is
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               onClick={(e) => e.stopPropagation()}
               className={`relative max-w-3xl w-full overflow-hidden flex flex-col max-h-[90vh] shadow-2xl rounded-2xl border
-                ${isDark ? 'bg-zinc-900 border-white/10 shadow-emerald-500/10' : 'bg-white border-zinc-200 shadow-zinc-500/20'}
+                ${isDark ? 'bg-zinc-900 border-white/10 shadow-[#80276C]/10' : 'bg-white border-zinc-200 shadow-zinc-500/20'}
               `}
             >
               <div className="h-64 sm:h-80 w-full relative shrink-0">
@@ -752,7 +752,7 @@ export default function HomePage({ isDark, toggleTheme, lang, toggleLang }: { is
                       target="_blank"
                       rel="noopener noreferrer"
                       className={`inline-flex shrink-0 items-center justify-center w-10 h-10 rounded-full transition-colors
-                        ${isDark ? 'bg-emerald-500 text-zinc-950 hover:bg-emerald-400' : 'bg-emerald-500 text-white hover:bg-emerald-600'}
+                        ${isDark ? 'bg-[#80276C] text-white hover:bg-[#a04d8a]' : 'bg-[#80276C] text-white hover:bg-[#6b2059]'}
                       `}
                       title="Voir le code/projet"
                     >
@@ -771,7 +771,7 @@ export default function HomePage({ isDark, toggleTheme, lang, toggleLang }: { is
                   ))}
                 </div>
 
-                <div className={`prose max-w-none ${isDark ? 'prose-invert prose-emerald' : 'prose-emerald'}`}>
+                <div className={`prose max-w-none ${isDark ? 'prose-invert' : ''}`}>
                   <p className={`text-lg leading-relaxed mb-6 font-medium ${isDark ? 'text-zinc-300' : 'text-zinc-700'}`}>
                     {selectedProject.desc}
                   </p>

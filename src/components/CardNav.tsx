@@ -166,7 +166,7 @@ const CardNav = ({
           >
             {logo ? <img src={logo} alt="Logo" className="logo" /> : (
               <>
-                <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                <div className="w-2 h-2 rounded-full bg-[#80276C] animate-pulse" />
                 <span style={{ color: menuColor || '#000' }}>{logoText}</span>
               </>
             )}
