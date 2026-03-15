@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Component, ErrorInfo, ReactNode } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'motion/react';
 import { Activity, Database, Train, ChevronDown, Mail, Github, Linkedin, ArrowRight, ExternalLink, Terminal, Link as LinkIcon, X, Sun, Moon, Cloud } from 'lucide-react';
-import { SiPython, SiCplusplus, SiPytorch, SiTensorflow, SiScikitlearn, SiSqlite, SiInfluxdb, SiGrafana, SiDocker, SiGit, SiLabview } from 'react-icons/si';
+import { SiPython, SiCplusplus, SiPytorch, SiTensorflow, SiScikitlearn, SiSqlite, SiInfluxdb, SiGrafana, SiDocker, SiGit, SiLabview, SiKaggle } from 'react-icons/si';
 import { Link } from 'react-router-dom';
 
 import Aurora from '../components/Aurora';
@@ -15,59 +15,60 @@ import ratpLogo from '../assets/logos/ratp.jpg';
 import ensamLogo from '../assets/logos/ensam.png';
 
 // --- Data ---
+const BASE = import.meta.env.BASE_URL;
 const PROJECTS = [
   {
-    title: "Détection précoce d'usure d'essieux",
-    category: "Pro",
-    image: "https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&q=80&w=800",
-    desc: "Déploiement d'un réseau de capteurs accélérométriques sur bogies. Modèle de ML pour classifier les signatures vibratoires et prédire les défaillances de roulements.",
-    content: "Dans ce projet, l'objectif était d'anticiper la maintenance des essieux. L'utilisation de données vibratoires à haute fréquence couplée à des modèles d'IA permet de diviser par deux les temps d'arrêt non planifiés.",
-    tags: ["IoT", "Python", "Vibrations"],
+    title: "Conception Moteur V4",
+    category: "Ingenierie",
+    image: `${BASE}projet moteur.webp`,
+    desc: "Conception et dimensionnement complet d'un moteur 4 cylindres en V. Modélisation CAO, calculs de résistance des matériaux et simulations thermiques.",
+    content: "Projet d'ingénierie mécanique portant sur la conception intégrale d'un moteur V4. Réalisation des plans détaillés, choix des matériaux, dimensionnement des composants critiques (vilebrequin, bielles, pistons) et validation par simulation numérique.",
+    tags: ["Mécanique", "CAO", "Conception"],
+    link: ""
+  },
+  {
+    title: "Soudage Robotisé WAAM — Robot ABB",
+    category: "Ingenierie",
+    image: `${BASE}WAAM welding.jpg`,
+    desc: "Mise en œuvre du procédé WAAM (Wire Arc Additive Manufacturing) avec un robot ABB pour la fabrication additive métallique par arc électrique.",
+    content: "Programmation et paramétrage d'un robot ABB pour réaliser des dépôts de matière couche par couche via le procédé WAAM. Optimisation des paramètres de soudage (vitesse, intensité, trajectoire) pour garantir la qualité métallurgique des pièces produites.",
+    tags: ["Robotique", "WAAM", "Fabrication Additive"],
+    link: ""
+  },
+  {
+    title: "Robot Autonome — Réseau de Neurones",
+    category: "IA",
+    image: `${BASE}robot autonome.png`,
+    desc: "Conception et programmation d'un robot autonome piloté par un réseau de neurones pour la navigation et l'évitement d'obstacles.",
+    content: "Développement d'un robot autonome intégrant un réseau de neurones pour le contrôle en temps réel. Entraînement du modèle sur des données de capteurs pour permettre une navigation autonome et un évitement d'obstacles intelligent.",
+    tags: ["IA", "Robotique", "Deep Learning"],
     link: "https://github.com/GuyProgress/Neural-Net-for-autonomous-robot-control"
   },
   {
-    title: "Jumeau Numérique de Voie Ferrée",
-    category: "Pro",
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800",
-    desc: "Modélisation de la dégradation géométrique de la voie basée sur les données de trains de mesure. Optimisation des campagnes de bourrage.",
-    content: "Création d'un modèle de jumeau hybride combinant modélisation physique et intelligence artificielle (réduction de dimensions) pour simuler la dégradation des voies ferrées au cours du temps.",
-    tags: ["Data Science", "Simulation"],
-    link: "https://github.com/GuyProgress/Projets-IA-r-duction-de-dimensions-et-Jumeaux-hybrides"
-  },
-  {
-    title: "Dashboard Supervision Flotte",
-    category: "Pro",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800",
-    desc: "Architecture télémétrique complète. Ingestion de données haute fréquence, stockage time-series et visualisation sur Grafana pour les opérateurs.",
-    content: "Mise en place d'un pipeline de données complet. Les données sont ingérées dans InfluxDB et restituées en temps réel sur des tableaux de bord interactifs pour permettre une surveillance de flotte de plus de 100 rames.",
-    tags: ["InfluxDB", "Grafana", "Architecture"],
+    title: "Maintenance Prédictive Ferroviaire",
+    category: "IA",
+    image: `${BASE}trains.jpg`,
+    desc: "Développement de modèles de maintenance prédictive pour anticiper les défaillances sur le matériel roulant ferroviaire.",
+    content: "Analyse de données capteurs issues de trains en service. Implémentation d'algorithmes de machine learning (Random Forest, LSTM) pour prédire les pannes et optimiser les plannings de maintenance, réduisant les temps d'arrêt non planifiés.",
+    tags: ["Machine Learning", "Ferroviaire", "Python"],
     link: ""
   },
   {
-    title: "Algorithme de Diagnostic Pantographe",
-    category: "Pro",
-    image: "https://images.unsplash.com/photo-1527219525722-f9767a7af961?auto=format&fit=crop&q=80&w=800",
-    desc: "Analyse d'images et de signaux de tension pour détecter les arcs électriques et l'usure anormale des archets de pantographe via Computer Vision.",
-    content: "Système de vision par ordinateur embarqué atteignant plus de 99% de précision. L'algorithme détecte instantanément les défauts critiques de l'interaction pantographe-caténaire.",
-    tags: ["Computer Vision", "Deep Learning"],
+    title: "Détection d'Anomalies Moteurs — Dataset NASA",
+    category: "IA",
+    image: `${BASE}anomaly detection.webp`,
+    desc: "Détection d'anomalies sur des moteurs à partir du dataset C-MAPSS de la NASA. Modélisation de la durée de vie résiduelle (RUL).",
+    content: "Utilisation du dataset NASA C-MAPSS pour développer des modèles de pronostic de défaillance moteur. Implémentation de techniques de détection d'anomalies (Isolation Forest, Autoencoders) et estimation de la durée de vie résiduelle (Remaining Useful Life).",
+    tags: ["Anomaly Detection", "NASA", "Python"],
     link: ""
   },
   {
-    title: "Robot Autonome de Suivi de Ligne",
-    category: "Academique",
-    image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800",
-    desc: "Conception mécanique, électronique et programmation d'un robot suiveur de ligne avec évitement d'obstacles.",
-    content: "Projet mécatronique complet : Modélisation CAO 3D, conception de la carte électronique PCB, et programmation du microcontrôleur en C++ pour le contrôle PID des moteurs brossés.",
-    tags: ["Mécatronique", "C++", "CAO"],
-    link: ""
-  },
-  {
-    title: "Classification d'Images Médicales",
-    category: "Academique",
-    image: "https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&q=80&w=800",
-    desc: "Développement d'un réseau de neurones convolutif (CNN) pour la détection de tumeurs cérébrales sur des IRM.",
-    content: "Entraînement d'un modèle ResNet50 avec PyTorch sur un dataset médical. Application de techniques de data augmentation pour contrer le déséquilibre des classes.",
-    tags: ["IA", "PyTorch", "Santé"],
+    title: "CNN — Détection de Défauts Industriels",
+    category: "IA",
+    image: `${BASE}cnn.png`,
+    desc: "Réseau de neurones convolutif (CNN) pour la détection automatique de défauts sur des pièces industrielles par vision par ordinateur.",
+    content: "Entraînement d'un modèle CNN (architecture ResNet/VGG) pour classifier et localiser les défauts de surface sur des pièces manufacturées. Application de techniques de data augmentation et de transfer learning pour maximiser la précision de détection.",
+    tags: ["Computer Vision", "CNN", "Deep Learning"],
     link: ""
   }
 ];
@@ -242,6 +243,7 @@ export default function HomePage({ isDark, toggleTheme }: { isDark: boolean, tog
                 { label: "Me contacter", ariaLabel: "Email us", href: "#contact" },
                 { label: "GitHub", ariaLabel: "GitHub Profile", href: "https://github.com/GuyProgress" },
                 { label: "LinkedIn", ariaLabel: "LinkedIn Profile", href: "https://www.linkedin.com/in/othmane-el-houdaigui-887909212/" },
+                { label: "Kaggle", ariaLabel: "Kaggle Profile", href: "https://www.kaggle.com/othmaneehd" },
               ]
             }
           ]}
@@ -450,13 +452,13 @@ export default function HomePage({ isDark, toggleTheme }: { isDark: boolean, tog
           <div className="max-w-7xl mx-auto px-6">
             <SectionHeading
               number="03"
-              title="Projets Professionnels"
-              subtitle="Cas concrets d'optimisation et de détection d'anomalies en milieu industriel."
+              title="Projets d'Ingénierie"
+              subtitle="Conception mécanique, robotique et fabrication avancée."
               isDark={isDark}
             />
 
             <div className="grid md:grid-cols-2 gap-6">
-              {PROJECTS.filter(p => p.category === "Pro").map((project, i) => (
+              {PROJECTS.filter(p => p.category === "Ingenierie").map((project, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, y: 20 }}
@@ -497,12 +499,12 @@ export default function HomePage({ isDark, toggleTheme }: { isDark: boolean, tog
         <section className={`py-16 md:py-24 border-y ${isDark ? 'bg-zinc-900/30 border-white/5' : 'bg-zinc-50 border-zinc-200'}`}>
           <div className="max-w-7xl mx-auto px-6">
             <h2 className={`text-2xl md:text-3xl font-bold tracking-tight mb-12 flex items-center gap-3 ${isDark ? 'text-white' : 'text-zinc-900'}`}>
-              <span className="w-8 h-8 rounded-full bg-blue-500/20 text-blue-500 flex items-center justify-center text-sm">🎓</span>
-              Projets Académiques & Personnels
+              <span className="w-8 h-8 rounded-full bg-blue-500/20 text-blue-500 flex items-center justify-center text-sm">🤖</span>
+              Projets IA & Machine Learning
             </h2>
 
             <div className="grid md:grid-cols-2 gap-6">
-              {PROJECTS.filter(p => p.category === "Academique").map((project, i) => (
+              {PROJECTS.filter(p => p.category === "IA").map((project, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, y: 20 }}
@@ -636,6 +638,10 @@ export default function HomePage({ isDark, toggleTheme }: { isDark: boolean, tog
                     <a href="https://www.linkedin.com/in/othmane-el-houdaigui-887909212/" target="_blank" rel="noopener noreferrer" className={`p-4 rounded-xl transition-colors ${isDark ? 'bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-blue-400' : 'bg-black/5 hover:bg-black/10 text-zinc-600 hover:text-blue-600'}`}>
                       <Linkedin size={24} />
                       <span className="sr-only">LinkedIn</span>
+                    </a>
+                    <a href="https://www.kaggle.com/othmaneehd" target="_blank" rel="noopener noreferrer" className={`p-4 rounded-xl transition-colors ${isDark ? 'bg-white/5 hover:bg-white/10 text-zinc-400 hover:text-cyan-400' : 'bg-black/5 hover:bg-black/10 text-zinc-600 hover:text-cyan-600'}`}>
+                      <SiKaggle size={24} />
+                      <span className="sr-only">Kaggle</span>
                     </a>
                   </div>
                 </div>
